@@ -1,29 +1,17 @@
 <?php
-// require 'functions.php';
-$datatampil = 5;
-
-// END DATA SEMENTARA
-// $total_kos = count(tabel("SELECT * FROM ju"));
-$datamuncul = ceil($total_kos / $datatampil);
-if (isset($_GET['page'])) {
-    $halamanaktif = $_GET['page'];
-} else {
-    $halamanaktif = 1;
-}
-$awaldata = $datatampil * $halamanaktif - $datatampil;
-// $tampil = tabel("SELECT * FROM ju LIMIT $awaldata, $datatampil");
-
-if (isset($_GET["submit"])) {
-    if ($_GET['tgl'] >= 1 && $_GET['tgl'] <= 31) {
-        $tgl = $_GET['tgl'];
-        // $tampil = tabel("SELECT * FROM ju WHERE Tanggal = $tgl");
-    } else {
-        echo "<script>
-				alert('Tanggal yang Anda masukkan salah!');
-				document.location.href = 'ju.php';
-			</script>";
-    }
-}
+// $total_kos = count($data_koses);
+// if (isset($_GET["submit"])) {
+//     if ($_GET['tgl'] >= 1 && $_GET['tgl'] <= 31) {
+//         $tgl = $_GET['tgl'];
+//         // $tampil = tabel("SELECT * FROM ju WHERE Tanggal = $tgl");
+//     } else {
+//         echo "<script>
+// 				alert('Tanggal yang Anda masukkan salah!');
+// 				document.location.href = 'ju.php';
+// 			</script>";
+//     }
+// }
+// 
 ?>
 
 <?= $this->extend('layout/template') ?>
@@ -51,7 +39,7 @@ if (isset($_GET["submit"])) {
                                 <div class="mb-3">
                                     <div class="form-group">
                                         <label class="mb-2">Provinsi</label>
-                                        <select class="form-control" name="kabupaten" id="form_prov">
+                                        <select class="form-control" name="provinsi" id="form_prov">
                                             <option value="">Pilih Provinsi</option>
                                             <?php
                                             $koneksi = mysqli_connect('localhost', 'root', '', 'saharaku');
@@ -91,7 +79,7 @@ if (isset($_GET["submit"])) {
             <!-- END SECTION Filter -->
             <!-- Main -->
             <div class="container py-4 mt-3">
-                <h2>Ditemukan keseluruhan <?= $total_kos; ?> Kos yang ada </h2>
+                <h2>Data Kos-kos yang ada <?php $kabupaten ? print "di " . $kabupaten : "" ?></h2>
                 <div class="row">
                     <?php foreach ($data_koses as $data_kos) : ?>
                         <div class="container px-3 pt-3 mb-3 rounded" style="background-color: rgba(240, 235, 235, .5); ">
@@ -103,8 +91,19 @@ if (isset($_GET["submit"])) {
                                     <div class="col-md-8">
                                         <div class="card-body mx-4">
                                             <h5 class="card-title"><?= $data_kos['nama']; ?></h5>
-                                            <h5 class="card-title">Rp.<?= $data_kos['harga']; ?> per bulan</h5>
-                                            <p class="card-text"><?= $data_kos['alamat']; ?></p>
+                                            <h5 class="card-title mb-2">Rp.<?= $data_kos['harga']; ?> per bulan</h5>
+                                            <?php if ($data_kos['tipe'] == 'Kos Putra') : ?>
+                                                <span class="badge text-bg-primary">Kos Putra</span>
+                                            <?php elseif ($data_kos['tipe'] == 'Kos Putri') : ?>
+                                                <span class="badge text-bg-warning">Kos Putri</span>
+                                            <?php elseif ($data_kos['tipe'] == 'Kos Campur') : ?>
+                                                <span class="badge text-bg-danger">Kos Campur</span>
+                                            <?php elseif ($data_kos['tipe'] == 'Kos Pasutri') : ?>
+                                                <span class="badge text-bg-success">Kos Pasutri</span>
+                                            <?php elseif ($data_kos['tipe'] == 'Kontrakan') : ?>
+                                                <span class="badge text-bg-secondary">Kontrakan</span>
+                                            <?php endif; ?>
+                                            <p class="card-text mt-2"><?= $data_kos['alamat']; ?>, <?= $data_kos['kabupaten']; ?>, <?= $data_kos['provinsi']; ?></p>
                                             <p class="card-text"><?= $data_kos['deskripsi']; ?></p>
                                             <a href="/kos/<?= $data_kos['id']; ?>"><button type="button" class="btn btn-dark">Lihat Selengkapnya</button></a>
                                         </div>
@@ -114,6 +113,9 @@ if (isset($_GET["submit"])) {
                         </div>
                     <?php endforeach; ?>
                 </div>
+                <?php if ($kabupaten) : ?>
+                    <a href="/kos">Kembali ke daftar semua kos</a>
+                <?php endif; ?>
             </div>
             <!-- END Main -->
         </div>
@@ -121,22 +123,8 @@ if (isset($_GET["submit"])) {
     </div>
     <hr class="m-0">
     <!-- Pagination -->
-    <div class="container-fluid py-2" style='Text-align:right;'>
-        <?php if ($halamanaktif > 1) : ?>
-            <a href="?page=<?= $halamanaktif - 1 ?>">&lt</a>
-        <?php endif; ?>
-        <?php for ($i = 1; $i <= $datamuncul; $i++) : ?>
-            <?php if ($i == $halamanaktif) : ?>
-                <a href="?page=<?= $i ?>" style="font-weight:bold;color:blue;font-family:arial;">
-                    <?= $i ?>
-                </a>
-            <?php else : ?>
-                <a href="?page=<?= $i ?>"><?= $i ?></a>
-            <?php endif; ?>
-        <?php endfor; ?>
-        <?php if ($halamanaktif < $datamuncul) : ?>
-            <a href="?page=<?= $halamanaktif + 1 ?>">&gt</a>
-        <?php endif; ?>
+    <div class="container-fluid py-2" style='Text-align:left;'>
+        <?= $pager->links('kos', 'saharaku_pager') ?>
     </div>
     <!-- END Pagination -->
 </div>

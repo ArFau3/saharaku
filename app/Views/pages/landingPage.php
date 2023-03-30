@@ -24,28 +24,28 @@
         <div class="row pb-3">
             <div class="col">
                 <h4 class="py-4">Mengapa Memilih Kami ?</h4>
-                <div class="row row-cols-1 row-cols-md-6 my-3 gy-4">
-                    <div class="col-6 col-md-2 ps-md-0 ms-md-0" style="margin: auto;">
-                        <div class="card border border-1 shadow-lg" style="width: 15rem; height: 13rem;">
-                            <img src="assets/images/pic04.jpg" class="card-img-top" alt="...">
+                <div class="row text-center my-3 gy-4">
+                    <div class="col-lg-3">
+                        <div class="card border border-1 shadow-lg mx-auto  py-4" style="width: 15rem; height: 13rem;">
+                            <img src="assets/images/LogoSaharaKu.png" class="card-img-top h-50" style="object-fit: scale-down;" alt="...">
                             <div class="card-body">
                                 <p class="card-text fw-bold fs-6">Data dan Informasi yang Selalu Update</p>
                             </div>
                         </div>
                     </div>
                     <div class="col"></div>
-                    <div class="col-6 col-md-2 ps-md-0 ms-md-0" style="margin: auto;">
-                        <div class="card border border-1 shadow-lg" style="width: 15rem; height: 13rem;">
-                            <img src="assets/images/pic01.jpg" class="card-img-top" alt="...">
+                    <div class="col-lg-3">
+                        <div class="card border border-1 shadow-lg mx-auto  py-4" style="width: 15rem; height: 13rem;">
+                            <img src="assets/images/LogoSaharaKu.png" class="card-img-top h-50" style="object-fit: scale-down;" alt="...">
                             <div class="card-body">
                                 <p class="card-text fw-bold fs-6">Informasi yang Terpercaya</p>
                             </div>
                         </div>
                     </div>
                     <div class="col"></div>
-                    <div class="col-6 col-md-2 ps-md-0 ms-md-0" style="margin: auto;">
-                        <div class="card border border-1 shadow-lg" style="width: 15rem; height: 13rem;">
-                            <img src="assets/images/pic03.jpg" class="card-img-top" alt="...">
+                    <div class="col-lg-3">
+                        <div class="card border border-1 shadow-lg mx-auto  py-4" style="width: 15rem; height: 13rem;">
+                            <img src="assets/images/LogoSaharaKu.png" class="card-img-top h-50" style="object-fit: scale-down;" alt="...">
                             <div class="card-body">
                                 <p class="card-text fw-bold fs-6">Bantuan Perantau selama 24 Jam Penuh </p>
                             </div>
@@ -100,7 +100,7 @@
                                             </ul>
                                             <!-- END FITUR KOS -->
                                             <p class="card-text fw-bolder fs-5"><small>Rp. <?= $rekomendasi_kos[0]['harga']; ?> / Bulan</small></p>
-                                            <button type="button" class="btn btn-dark w-lg-25 mb-3">Lihat Selengkapnya</button>
+                                            <a href="/kos/<?= $rekomendasi_kos[0]['id']; ?>"><button type="button" class="btn btn-dark w-lg-25 mb-3">Lihat Selengkapnya</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +136,7 @@
                                             </ul>
                                             <!-- END FITUR KOS -->
                                             <p class="card-text fw-bolder fs-5"><small>Rp. <?= $rekomendasi_kos[1]['harga']; ?> / Bulan</small></p>
-                                            <button type="button" class="btn btn-dark w-lg-25 mb-3">Lihat Selengkapnya</button>
+                                            <a href="/kos/<?= $rekomendasi_kos[1]['id']; ?>"><button type="button" class="btn btn-dark w-lg-25 mb-3">Lihat Selengkapnya</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@
                                             </ul>
                                             <!-- END FITUR KOS -->
                                             <p class="card-text fw-bolder fs-5"><small>Rp. <?= $rekomendasi_kos[2]['harga']; ?> / Bulan</small></p>
-                                            <button type="button" class="btn btn-dark w-lg-25 mb-3">Lihat Selengkapnya</button>
+                                            <a href="/kos/<?= $rekomendasi_kos[2]['id']; ?>"><button type="button" class="btn btn-dark w-lg-25 mb-3">Lihat Selengkapnya</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -198,9 +198,9 @@
     <div class="row pb-3">
         <div class="col">
             <h4 class="py-4">Tempat Tinggal Apa Saja yang Ada di SAHARA</h4>
-            <div class="row row-cols-1 row-cols-md-5 my-3 gy-4">
-                <div class="col-5 col-md-2 ps-md-0 ms-md-0" style="margin: auto;">
-                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary p-3" style="width: 13rem; height: 15rem;">
+            <div class="row text-center my-3 gy-4">
+                <div class="col-lg-3">
+                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary mx-auto py-4" style="width: 13rem; height: 15rem;">
                         <img src="assets/icons/person-simple.png" class="card-img-top object-fit-scale h-75" alt="...">
                         <div class="card-body">
                             <p class="card-text fw-bold fs-6">Kost Putra</p>
@@ -208,8 +208,8 @@
                     </div>
                 </div>
                 <div class="col"></div>
-                <div class="col-5 col-md-2 ps-md-0 ms-md-0" style="margin: auto;">
-                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary p-3" style="width: 13rem; height: 15rem;">
+                <div class="col-lg-3">
+                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary mx-auto py-4" style="width: 13rem; height: 15rem;">
                         <img src="assets/icons/woman-head.png" class="card-img-top object-fit-scale h-75" alt="...">
                         <div class="card-body">
                             <p class="card-text fw-bold fs-6">Kost Putri</p>
@@ -217,8 +217,8 @@
                     </div>
                 </div>
                 <div class="col"></div>
-                <div class="col-5 col-md-2 ps-md-0 ms-md-0" style="margin: auto;">
-                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary p-3" style="width: 13rem; height: 15rem;">
+                <div class="col-lg-3">
+                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary mx-auto py-4" style="width: 13rem; height: 15rem;">
                         <img src="assets/icons/restroom-simple.png" class="card-img-top object-fit-scale h-75" alt="...">
                         <div class="card-body">
                             <p class="card-text fw-bold fs-6">Kost Campuran</p>
@@ -226,10 +226,10 @@
                     </div>
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-5 gy-4 pt-md-5 mt-md-5 ">
-                <div class="col-md-2"></div>
-                <div class="col-5 col-md-2 ps-md-0 ms-md-0" style="margin: auto;">
-                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary p-3" style="width: 13rem; height: 15rem;">
+            <div class="row text-center my-3 gy-4">
+                <div class="col-2"></div>
+                <div class="col-lg-3">
+                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary mx-auto py-4" style="width: 13rem; height: 15rem;">
                         <img src="assets/icons/people.png" class="card-img-top object-fit-scale h-75" alt="...">
                         <div class="card-body">
                             <p class="card-text fw-bold fs-6">Kost Pasutri</p>
@@ -237,15 +237,15 @@
                     </div>
                 </div>
                 <div class="col"></div>
-                <div class="col-5 col-md-2 ps-md-0 ms-md-0" style="margin: auto;">
-                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary p-3" style="width: 13rem; height: 15rem;">
+                <div class="col-lg-3">
+                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary mx-auto py-4" style="width: 13rem; height: 15rem;">
                         <img src="assets/icons/house-building.png" class="card-img-top object-fit-scale h-75" alt="...">
                         <div class="card-body">
                             <p class="card-text fw-bold fs-6">Kontrakan</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2"></div>
+                <div class="col-2"></div>
             </div>
         </div>
     </div>
@@ -256,7 +256,7 @@
     <div class="container py-5 mt-2">
         <div class="row pb-3">
             <div class="col-md-6 col-5">
-                <img src="assets/images/slide01.jpg" class="img-fluid" alt="...">
+                <img src="assets/images/LogoSaharaKuHorizontal.png" class="img-fluid" alt="...">
             </div>
             <div class="col"></div>
             <div class="col-md-4 col-6">

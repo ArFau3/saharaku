@@ -31,13 +31,18 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/kos', 'Kos::index');
-$routes->get('/kos/(:segment)', 'Kos::dataKos/$1');
-$routes->get('/kos/1', 'Kos::dataKos');
-$routes->get('/register/rantau', 'Akun::daftarRantau');
-$routes->get('/register/pemilik', 'Akun::daftarPemilik');
-$routes->get('/login', 'Akun::login');
+$routes->delete('/kos/(:num)', 'Kos::hapusKos/$1');
+$routes->get('/kos/(:any)', 'Kos::dataKos/$1');
+// $routes->get('/register/rantau', 'Akun::daftarRantau');
+// $routes->get('/register/pemilik', 'Akun::daftarPemilik');
+// $routes->get('/login', 'Akun::login');
 $routes->get('/profil', 'Akun::profil');
-$routes->get('/kos/tambah', 'Kos::tambahKos');
+$routes->get('/tambahKos', 'Kos::tambahKos');
+$routes->post('/simpanKos', 'Kos::save');
+$routes->get('/editKos/(:num)', 'Kos::editKos/$1');
+$routes->post('/updateKos/(:num)', 'Kos::updateKos/$1');
+$routes->post('/hubungi', 'Kos::hubungi');
+
 
 
 $routes->get('/hielo', 'Home::elements');

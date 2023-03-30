@@ -20,7 +20,7 @@
                 <p class="float-start align-middle m-1 text-dark fw-semibold">Sahabat Rantau</p>
             </button>
             <div class="hstack gap-3">
-                <li class="nav-item dropdown" style="list-style: none;">
+                <!-- <li class="nav-item dropdown" style="list-style: none;">
                     <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Daftar
                     </a>
@@ -34,9 +34,14 @@
 
                         <li><a class="dropdown-item fw-bold" href="/register/rantau">Untuk Perantau</a></li>
                     </ul>
-                </li>
+                </li> -->
                 <div class="vr" style="width: 3px;"></div>
-                <a href="/login" class="fw-bold" style="text-decoration: none; color:black;"><i class="fa-solid fa-user"></i> Hi, User</a>
+                <?php if (logged_in() == false) : ?>
+                    <a href="/login" class="fw-bold" style="text-decoration: none; color:black;"><i class="fa-solid fa-user"></i> Hi, User</a>
+                <?php else : ?>
+                    <?php $user = user(); ?>
+                    <a href="/profil" class="fw-bold" style="text-decoration: none; color:black;"><i class="fa-solid fa-user"></i> Hi, <?= $user->username; ?></a>
+                <?php endif; ?>
             </div>
 
             <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -49,7 +54,7 @@
                         <li class="nav-item">
                             <a class="nav-link active text-white" aria-current="page" href="/">Home</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Jenis Tempat Tinggal
                             </a>
@@ -72,18 +77,20 @@
                                 </li>
                                 <li><a class="dropdown-item" href="#">Kontrakan</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
+                            <a class="nav-link text-white" href="/kos">Daftar Kos</a>
+                        </li>
+                        <!-- <li class="nav-item">
                             <a class="nav-link text-white" href="#">Tentang Kami</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="#">Pusat Bantuan</a>
-                        </li>
+                        </li> -->
                     </ul>
-                    <form class="d-flex mt-3" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Nama Kos" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Cari</button>
-                    </form>
+                    <?php if (logged_in()) : ?>
+                        <a href="/logout"><button class="btn btn-outline-success" type="submit">Logout</button></a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -111,7 +118,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <a href="" class="link-light text-decoration-none">
+                            <a href="https://www.facebook.com/profile.php?id=100090784775873&mibextid=LQQJ4d" class="link-light text-decoration-none">
                                 <p class="mb-3 fw-light"><i class="fa-brands fa-facebook fa-xl mx-2"></i> Facebook</p>
                             </a>
                         </div>

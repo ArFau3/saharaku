@@ -8,7 +8,9 @@ class Akun extends BaseController
     {
         $data = [
             "title" => "Halaman Login | SahabatRantauKu.com",
+
         ];
+
         return view('akun/login', $data);
     }
 
@@ -30,8 +32,12 @@ class Akun extends BaseController
 
     public function profil()
     {
+        $profil = user();
+        $my_kos = $this->kosModel->where(['user_id' => $profil->id])->findAll();
         $data = [
             "title" => "Profil Akun | SahabatRantauKu.com",
+            "profil" => $profil,
+            "my_kos" => $my_kos,
         ];
         return view('akun/profilAkun', $data);
     }

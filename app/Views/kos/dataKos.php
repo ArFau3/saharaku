@@ -11,7 +11,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
                     <li class="breadcrumb-item"><a href="/kos">Daftar Kos</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data Kos</li>
+                    <li class="breadcrumb-item active" aria-current="page">Informasi <?= $data_kos['nama']; ?></li>
                 </ol>
             </nav>
             <!-- END Breadcrumb -->
@@ -32,17 +32,17 @@
                                     <?php endif ?>
                                     <?php if ($data_kos['foto2']) : ?>
                                         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3" style="width: 100px;">
-                                            <img class="d-block w-100 shadow-1-strong rounded" src="../images/slide03.jpg" class="img-fluid" />
+                                            <img class="d-block w-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto2']; ?>" class="img-fluid" />
                                         </button>
                                     <?php endif ?>
                                     <?php if ($data_kos['foto3']) : ?>
                                         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4" style="width: 100px;">
-                                            <img class="d-block w-100 shadow-1-strong rounded" src="../images/slide04.jpg" class="img-fluid" />
+                                            <img class="d-block w-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto3']; ?>" class="img-fluid" />
                                         </button>
                                     <?php endif ?>
                                     <?php if ($data_kos['foto4']) : ?>
                                         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5" style="width: 100px;">
-                                            <img class="d-block w-100 shadow-1-strong rounded" src="../images/slide05.jpg" class="img-fluid" />
+                                            <img class="d-block w-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto4']; ?>" class="img-fluid" />
                                         </button>
                                     <?php endif ?>
                                 </div>
@@ -99,7 +99,7 @@
                             <p class="mb-1 fw-semibold">No WA : <?= $data_kos['wa']; ?></p>
                             <p class="mb-1 fw-semibold">Harga : Rp. <?= $data_kos['harga']; ?> / Bulan</p>
                         </div>
-                        <button type="button" class="btn btn-outline-dark">Lihat Lokasi di Google Maps</button>
+                        <!-- <button type="button" class="btn btn-outline-dark">Lihat Lokasi di Google Maps</button> -->
                     </div>
                     <!-- END SECTION Deskripsi Kanan -->
                 </div>
@@ -115,26 +115,27 @@
                         <h3 class="fw-bolder">Fasilitas yang Didapat</h3>
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" disabled <?php $data_kos['kamar_mandi_dalam'] ? "checked" : "" ?> style="opacity:1;">
-                                <label class="form-check-label" for="firstCheckbox" style="opacity:1;">First checkbox</label>
+                                <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" disabled <?php $data_kos['kamar_mandi_dalam'] ? print "checked" : "" ?> style="opacity:1;">
+                                <label class="form-check-label" for="firstCheckbox" style="opacity:1;">Kamar Mandi Dalam</label>
                             </li>
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox" disabled checked style="opacity:1;">
-                                <label class="form-check-label" for="secondCheckbox" style="opacity:1;">Second checkbox</label>
+                                <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox" disabled <?php $data_kos['ac'] ? print "checked" : "" ?> style="opacity:1;">
+                                <label class="form-check-label" for="secondCheckbox" style="opacity:1;">Sudah disertai AC</label>
                             </li>
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox" disabled checked style="opacity:1;">
-                                <label class="form-check-label" for="thirdCheckbox" style="opacity:1;">Third checkbox</label>
+                                <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox" disabled <?php $data_kos['wifi'] ? print "checked" : "" ?> style="opacity:1;">
+                                <label class="form-check-label" for="thirdCheckbox" style="opacity:1;">Dilengkapi Wifi</label>
                             </li>
                         </ul>
                     </div>
                     <div class="col-2" id="Hubungi"></div>
                     <div class="col-lg-6 text-center mt-4 mt-lg-0">
                         <h3 class="fw-bolder">Hubungi Pemilik</h3>
-                        <form action="" method="post">
-                            <input type="text" name="name" id="name" class="form-control" id="exampleFormControlInput1" placeholder="Nama :">
-                            <input type="text" name="hp" id="hp" class="form-control" id="exampleFormControlInput1" placeholder="No. Hp :">
-                            <input type="email" name="email" id="email" class="form-control" id="exampleFormControlInput1" placeholder="Email :">
+                        <form action="/hubungi" method="post">
+                            <input type="hidden" id="nomor" name="user_id" value="<?= $data_kos['wa']; ?>">
+                            <input type="text" name="nama_penghubung" id="nama_penghubung" class="form-control" id="exampleFormControlInput1" placeholder="Nama :">
+                            <!-- <input type="text" name="hp" id="hp" class="form-control" id="exampleFormControlInput1" placeholder="No. Hp :">
+                            <input type="email" name="email" id="email" class="form-control" id="exampleFormControlInput1" placeholder="Email :"> -->
                             <textarea name="pesan" id="pesan" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Pesan :"></textarea>
                             <button type="submit" class="btn btn-outline-secondary mt-5 w-100">Kirim Pesan</button>
                         </form>

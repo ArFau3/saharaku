@@ -1,5 +1,5 @@
 <?php
-$koneksi = mysqli_connect('localhost', 'root', '', 'saharaku');
+include '../app/Controllers/koneksi.php';
 
 $data = $_POST['data'];
 $id = $_POST['id'];
