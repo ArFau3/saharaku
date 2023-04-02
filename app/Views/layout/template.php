@@ -155,6 +155,117 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script>
+        function previewImg() {
+            const thumbnail = document.querySelector('#thumbnail');
+            const img_preview = document.querySelector('.img-preview');
+
+            const file_thumbnail = new FileReader();
+            file_thumbnail.readAsDataURL(thumbnail.files[0]);
+
+            file_thumbnail.onload = function(e) {
+                img_preview.src = e.target.result;
+            }
+        }
+    </script>
+    <script>
+        function previewImg1() {
+            const foto1 = document.querySelector('#foto1');
+            const img_preview = document.querySelector('.img-preview1');
+
+            const file_foto1 = new FileReader();
+            file_foto1.readAsDataURL(foto1.files[0]);
+
+            file_foto1.onload = function(e) {
+                img_preview.src = e.target.result;
+            }
+        }
+    </script>
+    <script>
+        function previewImg2() {
+            const foto2 = document.querySelector('#foto2');
+            const img_preview = document.querySelector('.img-preview2');
+
+            const file_foto2 = new FileReader();
+            file_foto2.readAsDataURL(foto2.files[0]);
+
+            file_foto2.onload = function(e) {
+                img_preview.src = e.target.result;
+            }
+        }
+    </script>
+    <script>
+        function previewImg3() {
+            const foto3 = document.querySelector('#foto3');
+            const img_preview = document.querySelector('.img-preview3');
+
+            const file_foto3 = new FileReader();
+            file_foto3.readAsDataURL(foto3.files[0]);
+
+            file_foto3.onload = function(e) {
+                img_preview.src = e.target.result;
+            }
+        }
+    </script>
+    <script>
+        function previewImg4() {
+            const foto4 = document.querySelector('#foto4');
+            const img_preview = document.querySelector('.img-preview4');
+
+            const file_foto4 = new FileReader();
+            file_foto4.readAsDataURL(foto4.files[0]);
+
+            file_foto4.onload = function(e) {
+                img_preview.src = e.target.result;
+            }
+        }
+    </script>
+    <script>
+        function previewImg5() {
+            const foto5 = document.querySelector('#foto5');
+            const img_preview = document.querySelector('.img-preview5');
+
+            const file_foto5 = new FileReader();
+            file_foto5.readAsDataURL(foto5.files[0]);
+
+            file_foto5.onload = function(e) {
+                img_preview.src = e.target.result;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            // ambil data kabupaten ketika data memilih provinsi
+            $('body').on("change", "#form_prov", function() {
+                var id = $(this).val();
+                var data = "id=" + id + "&data=kabupaten";
+                $.ajax({
+                    type: 'POST',
+                    url: "get_daerah.php",
+                    data: data,
+                    success: function(hasil) {
+                        $("#form_kab").html(hasil);
+                    }
+                });
+            });
+
+        });
+
+        //Membuat Custom function (sekali bikin bisa untuk berkali-kali pakainya cukup panggil nama functionnya)
+        function getSelectText(selId) {
+            var sel = document.getElementById(selId);
+            var i = sel.selectedIndex;
+            var selected_text = sel.options[i].text;
+            return selected_text;
+        }
+
+        //untuk mengambil value namanya-nya
+        let provinsi = getSelectText(form_prov);
+        let kabupaten = getSelectText(form_kab);
+
+        console.log(provinsi, kabupaten);
+    </script>
 </body>
 
 </html>

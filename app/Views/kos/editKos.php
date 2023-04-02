@@ -1,8 +1,7 @@
 <?= $this->extend('layout/template') ?>
 
 <?= $this->section('content') ?>
-<?php $data_kos['provinsi'] = 0;
-$data_kos['kabupaten'] = 0;
+<?php
 // dd($data_kos);
 ?>
 <div class="text-center">
@@ -17,12 +16,36 @@ $data_kos['kabupaten'] = 0;
     <form action="/updateKos/<?= $data_kos['id']; ?>" method="post" enctype="multipart/form-data">
         <?= csrf_field(); ?>
         <!-- HIDDEN INPUT -->
-        <input type="hidden" id="pemilik" name="pemilik" value="<?php $data_profil->firstname ? print "$data_profil->firstname" : print "$data_profil->username" ?>">
         <input type="hidden" id="user_id" name="user_id" value="<?php echo $data_profil->id; ?>">
+        <input type="hidden" id="provinsi" name="provinsi" value="<?php echo $data_kos['provinsi'] ?>">
+        <input type="hidden" id="kabupaten" name="kabupaten" value="<?php echo $data_kos['kabupaten'] ?>">
         <input type="hidden" id="thumbnail_lama" name="thumbnail_lama" value="<?php echo $data_kos['thumbnail'] ?>">
         <input type="hidden" id="foto1_lama" name="foto1_lama" value="<?php echo $data_kos['foto1'] ?>">
         <input type="hidden" id="foto2_lama" name="foto2_lama" value="<?php echo $data_kos['foto2'] ?>">
+        <input type="hidden" id="foto3_lama" name="foto3_lama" value="<?php echo $data_kos['foto3'] ?>">
+        <input type="hidden" id="foto4_lama" name="foto4_lama" value="<?php echo $data_kos['foto4'] ?>">
+        <input type="hidden" id="foto5_lama" name="foto5_lama" value="<?php echo $data_kos['foto5'] ?>">
         <!-- END HIDDEN INPUT -->
+        <!-- Nama Pemilik -->
+        <div class="row">
+            <div class="col">
+                <div class="container my-2" style="background-color: rgba(240, 235, 235, .5);">
+                    <div class="row g-3 align-items-center pt-2">
+                        <div class="col"></div>
+                        <div class="col-lg-2">
+                            <label for="pemilik" class="col-form-label">Nama Pemilik :</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="text" id="pemilik" name="pemilik" class="form-control<?php ($validation->hasError('pemilik')) ? print "is-invalid" : print "" ?>" aria-describedby="passwordHelpInline" value="<?php $data_profil->firstname ? print "$data_profil->firstname" : print "$data_profil->username" ?>">
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                <?= $validation->getError('pemilik'); ?>
+                            </div>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Nama Kos -->
         <div class="row">
             <div class="col">
@@ -123,11 +146,11 @@ $data_kos['kabupaten'] = 0;
                         </div>
                         <div class="col-8">
                             <select class="form-select" id="tipe" name="tipe" aria-label="Default select example">
-                                <option value="Kos Putra">Kos Putra</option>
-                                <option value="Kos Putri">Kos Putri</option>
-                                <option value="Kos Campuran">Kos Campuran</option>
-                                <option value="Kos Pasutri">Kos Pasutri</option>
-                                <option value="Kontrakan">Kontrakan</option>
+                                <option value="Kos Putra" <?php ($data_kos['tipe'] == "Kos Putra") ? print 'selected' : print '' ?>>Kos Putra</option>
+                                <option value="Kos Putri" <?php ($data_kos['tipe'] == "Kos Putri") ? print 'selected' : print '' ?>>Kos Putri</option>
+                                <option value="Kos Campur" <?php ($data_kos['tipe'] == "Kos Campur") ? print 'selected' : print '' ?>>Kos Campuran</option>
+                                <option value="Kos Pasutri" <?php ($data_kos['tipe'] == "Kos Pasutri") ? print 'selected' : print '' ?>>Kos Pasutri</option>
+                                <option value="Kontrakan" <?php ($data_kos['tipe'] == "Kontrakan") ? print 'selected' : print '' ?>>Kontrakan</option>
                             </select>
                         </div>
                         <div class="col"></div>
@@ -171,70 +194,125 @@ $data_kos['kabupaten'] = 0;
                 <div class="container my-2" style="background-color: rgba(240, 235, 235, .5);">
                     <div class="row g-3 align-items-center">
                         <div class="col"></div>
-                        <div class="col-2">
+                        <div class="col-3">
                             <label for="kamar_mandi_dalam" class="col-form-label">Kamar Mandi Dalam :</label>
                         </div>
                         <div class="col-1">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" <?php $data_kos['kamar_mandi_dalam'] ? print "checked" : print "" ?> role="switch" id="kamar_mandi_dalam" name="kamar_mandi_dalam">
+                                <input class="form-check-input" type="checkbox" role="switch" id="kamar_mandi_dalam" name="kamar_mandi_dalam" <?php $data_kos['kamar_mandi_dalam'] ? print "checked" : print "" ?>>
                             </div>
                         </div>
-                        <div class="col"></div>
-                        <div class="col-2">
+                        <div class="col-1"></div>
+                        <div class="col-3 col-lg-2">
                             <label for="ac" class="col-form-label">AC :</label>
                         </div>
                         <div class="col-1">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="ac" <?php $data_kos['ac'] ? print "checked" : print "" ?> name="ac">
+                                <input class="form-check-input" type="checkbox" role="switch" id="ac" name="ac" <?php $data_kos['ac'] ? print "checked" : print "" ?>>
                             </div>
                         </div>
                         <div class="col"></div>
-                        <div class="col-2">
-                            <label for="wifi" class="col-form-label">Free wifi :</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="container my-2" style="background-color: rgba(240, 235, 235, .5);">
+                    <div class="row g-3 align-items-center">
+                        <div class="col"></div>
+                        <div class="col-3">
+                            <label for="wifi" class="col-form-label">Free Wifi :</label>
                         </div>
                         <div class="col-1">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" <?php $data_kos['wifi'] ? print "checked" : print "" ?> id="wifi" name="wifi">
+                                <input class="form-check-input" type="checkbox" role="switch" id="wifi" name="wifi" <?php $data_kos['wifi'] ? print "checked" : print "" ?>>
                             </div>
                         </div>
+                        <div class="col-1"></div>
+                        <div class="col-3 col-lg-2">
+                            <label for="cermin" class="col-form-label">Cermin :</label>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="cermin" name="cermin" <?php $data_kos['cermin'] ? print "checked" : print "" ?>>
+                            </div>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="container my-2" style="background-color: rgba(240, 235, 235, .5);">
+                    <div class="row g-3 align-items-center">
+                        <div class="col"></div>
+                        <div class="col-3">
+                            <label for="meja" class="col-form-label">Meja :</label>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="meja" name="meja" <?php $data_kos['meja'] ? print "checked" : print "" ?>>
+                            </div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3 col-lg-2">
+                            <label for="kursi" class="col-form-label">Kursi :</label>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="kursi" name="kursi" <?php $data_kos['kursi'] ? print "checked" : print "" ?>>
+                            </div>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="container my-2" style="background-color: rgba(240, 235, 235, .5);">
+                    <div class="row g-3 align-items-center">
+                        <div class="col"></div>
+                        <div class="col-3">
+                            <label for="bantal" class="col-form-label">Bantal :</label>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="bantal" name="bantal" <?php $data_kos['bantal'] ? print "checked" : print "" ?>>
+                            </div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3 col-lg-2">
+                            <label for="guling" class="col-form-label">Guling :</label>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="guling" name="guling" <?php $data_kos['guling'] ? print "checked" : print "" ?>>
+                            </div>
+                        </div>
+                        <div class="col"></div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Foto Kos -->
-        <!-- <div class="row">
-            <div class="col">
-                <div class="container my-2" style="background-color: rgba(240, 235, 235, .5);">
-                    <div class="row g-3">
-                        <div class="col"></div>
-                        <div class="col-2">
-                            <label for="thumbnail" class="col-form-label">Tambahkan Foto Utama:</label>
-                        </div>
-                        <div class="col-8">
-                            <div class="mb-3">
-                                <input class="form-control" type="file" id="thumbnail" name="thumbnail">
-                            </div>
-                        </div>
-                        <div class="col"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <?php
+        $nama_thumbnail = $data_kos['thumbnail'];
+        $nama_foto1 = $data_kos['foto1'];
+        $nama_foto2 = $data_kos['foto2'];
+        $nama_foto3 = $data_kos['foto3'];
+        $nama_foto4 = $data_kos['foto4'];
+        $nama_foto5 = $data_kos['foto5'];
+        ?>
         <div class="row">
             <div class="col">
                 <div class="container my-2" style="background-color: rgba(240, 235, 235, .5);">
-                    <div class="row g-3">
-                        <div class="col"></div>
-                        <div class="col-2">
-                            <label for="foto1" class="col-form-label">Tambahkan Foto Lagi:</label>
+                    <div class="row g-3 align-items-center pt-3">
+                        <div class="col">
+                            <h3 class="text-center">Tambahkan Foto <small>(Minimal 1)</small></h3>
                         </div>
-                        <div class="col-8">
-                            <div class="mb-3">
-                                <input class="form-control" type="file" id="foto1" name="foto1">
-                            </div>
-                        </div>
-                        <div class="col"></div>
                     </div>
                 </div>
             </div>
@@ -243,20 +321,78 @@ $data_kos['kabupaten'] = 0;
             <div class="col">
                 <div class="container my-2" style="background-color: rgba(240, 235, 235, .5);">
                     <div class="row g-3">
-                        <div class="col"></div>
-                        <div class="col-2">
-                            <label for="foto2" class="col-form-label">Tambahkan Foto Lagi:</label>
+                        <div class="col-2"></div>
+                        <div class="col-lg-2">
+                            <label for="thumbnail" class="col-form-label">Foto Utama :</label>
                         </div>
-                        <div class="col-8">
+                        <div class="col-sm-4">
+                            <div class="input-group mb-3">
+                                <div class="input-group mb-3">
+                                    <img src="/assets/images/<?php $nama_thumbnail ? print $nama_thumbnail : print 'kos-default.png' ?>" class="img-thumbnail img-preview" alt="">
+                                    <div class="mb-3">
+                                        <input class="form-control" type="file" id="thumbnail" name="thumbnail" onchange="previewImg()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="container my-2" style="background-color: rgba(240, 235, 235, .5);">
+                    <div class="row g-3 align-items-center pt-3">
+                        <div class="col">
+                            <h5 class="text-center">Foto-foto Tambahan Lainnya <small>(Opsional)</small></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="container my-2" style="background-color: rgba(240, 235, 235, .5);">
+                    <div class="row g-3">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-2 col-4">
+                            <img src="/assets/images/<?php $nama_foto1 ? print $nama_foto1 : print 'kos-default.png' ?>" class="img-thumbnail img-preview1" alt="">
                             <div class="mb-3">
-                                <input class="form-control" type="file" id="foto2" name="foto2">
+                                <input class="form-control" type="file" id="foto1" name="foto1" onchange="previewImg1()">
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-4">
+                            <img src="/assets/images/<?php $nama_foto2 ? print $nama_foto2 : print 'kos-default.png' ?>" class="img-thumbnail img-preview2" alt="">
+                            <div class="mb-3">
+                                <input class="form-control" type="file" id="foto2" name="foto2" onchange="previewImg2()">
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-4">
+                            <img src="/assets/images/<?php $nama_foto3 ? print $nama_foto3 : print 'kos-default.png' ?>" class="img-thumbnail img-preview3" alt="">
+                            <div class="mb-3">
+                                <input class="form-control" type="file" id="foto3" name="foto3" onchange="previewImg3()">
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-4">
+                            <img src="/assets/images/<?php $nama_foto4 ? print $nama_foto4 : print 'kos-default.png' ?>" class="img-thumbnail img-preview4" alt="">
+                            <div class="mb-3">
+                                <input class="form-control" type="file" id="foto4" name="foto4" onchange="previewImg4()">
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-4">
+                            <img src="/assets/images/<?php $nama_foto5 ? print $nama_foto5 : print 'kos-default.png' ?>" class="img-thumbnail img-preview5" alt="">
+                            <div class="mb-3">
+                                <input class="form-control" type="file" id="foto5" name="foto5" onchange="previewImg5()">
                             </div>
                         </div>
                         <div class="col"></div>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <div class="row">
             <div class="col">
@@ -269,38 +405,4 @@ $data_kos['kabupaten'] = 0;
         </div>
     </form>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-
-        // ambil data kabupaten ketika data memilih provinsi
-        $('body').on("change", "#form_prov", function() {
-            var id = $(this).val();
-            var data = "id=" + id + "&data=kabupaten";
-            $.ajax({
-                type: 'POST',
-                url: "get_daerah.php",
-                data: data,
-                success: function(hasil) {
-                    $("#form_kab").html(hasil);
-                }
-            });
-        });
-
-    });
-
-    //Membuat Custom function (sekali bikin bisa untuk berkali-kali pakainya cukup panggil nama functionnya)
-    function getSelectText(selId) {
-        var sel = document.getElementById(selId);
-        var i = sel.selectedIndex;
-        var selected_text = sel.options[i].text;
-        return selected_text;
-    }
-
-    //untuk mengambil value namanya-nya
-    let provinsi = getSelectText(form_prov);
-    let kabupaten = getSelectText(form_kab);
-
-    console.log(provinsi, kabupaten);
-</script>
 <?= $this->endSection() ?>

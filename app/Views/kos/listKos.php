@@ -97,7 +97,7 @@
                                             <?php elseif ($data_kos['tipe'] == 'Kos Putri') : ?>
                                                 <span class="badge text-bg-warning">Kos Putri</span>
                                             <?php elseif ($data_kos['tipe'] == 'Kos Campur') : ?>
-                                                <span class="badge text-bg-danger">Kos Campur</span>
+                                                <span class="badge text-bg-danger">Kos Campuran</span>
                                             <?php elseif ($data_kos['tipe'] == 'Kos Pasutri') : ?>
                                                 <span class="badge text-bg-success">Kos Pasutri</span>
                                             <?php elseif ($data_kos['tipe'] == 'Kontrakan') : ?>
@@ -128,38 +128,4 @@
     </div>
     <!-- END Pagination -->
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-
-        // ambil data kabupaten ketika data memilih provinsi
-        $('body').on("change", "#form_prov", function() {
-            var id = $(this).val();
-            var data = "id=" + id + "&data=kabupaten";
-            $.ajax({
-                type: 'POST',
-                url: "get_daerah.php",
-                data: data,
-                success: function(hasil) {
-                    $("#form_kab").html(hasil);
-                }
-            });
-        });
-
-    });
-
-    //Membuat Custom function (sekali bikin bisa untuk berkali-kali pakainya cukup panggil nama functionnya)
-    function getSelectText(selId) {
-        var sel = document.getElementById(selId);
-        var i = sel.selectedIndex;
-        var selected_text = sel.options[i].text;
-        return selected_text;
-    }
-
-    //untuk mengambil value namanya-nya
-    let provinsi = getSelectText(form_prov);
-    let kabupaten = getSelectText(form_kab);
-
-    console.log(provinsi, kabupaten);
-</script>
 <?= $this->endSection() ?>

@@ -8,6 +8,57 @@ use CodeIgniter\I18n\Time;
 class Kos extends BaseController
 {
     protected $wilayahModel;
+    protected $validation_rules = [
+        'nama' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Nama Kos/Kontrakan Wajib Diisi'
+            ]
+        ],
+        'harga' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Harga Sewa per Bulan Wajib Diisi'
+            ],
+        ],
+        'pemilik' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Nama Pemilik Tidak Boleh Kosong'
+            ],
+        ],
+        'user_id' => 'required',
+        'wa' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Masukkan Nomor Wa/Handphone Anda yang Bisa Dihubungi'
+            ],
+        ],
+        'tipe' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Pilih Tipe Dari Hunian'
+            ],
+        ],
+        'provinsi' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Pilih Provinsi Dari Hunian'
+            ],
+        ],
+        'kabupaten' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Pilih Kabupaten Dari Hunian'
+            ],
+        ],
+        'alamat' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Alamat Hunian Wajib Diisi'
+            ],
+        ],
+    ];
 
     public function index()
     {
@@ -40,12 +91,21 @@ class Kos extends BaseController
 
     public function tambahKos()
     {
-        // session();
+        session();
         $profil = user();
         $data = [
             "title" => "Tambah Kos | SahabatRantauKu.com",
             "data_profil" => $profil,
-            // 'validation' => \Config\Services::validation(),
+            'validation' => \Config\Services::validation(),
+            'lama' => [
+                'nama' => '',
+                'kamar' => '',
+                'harga' => '',
+                'deskripsi' => '',
+                'alamat' => '',
+                'wa' => '',
+                'tipe' => '',
+            ],
         ];
         return view('kos/tambahKos', $data);
     }
@@ -53,55 +113,142 @@ class Kos extends BaseController
     public function save()
     {
         // Validasi awal
-        if (!$this->validate([
-            'nama' => 'required',
-            'harga' => 'required',
-            'pemilik' => 'required',
-            'user_id' => 'required',
-            'wa' => 'required',
-            'tipe' => 'required',
-            'provinsi' => 'required',
-            'kabupaten' => 'required',
-            'alamat' => 'required',
-            'thumbnail' => 'max_size[thumbnail,10240]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
-            'foto1' => 'max_size[foto1,10240]|is_image[foto1]|mime_in[foto1,image/jpg,image/jpeg,image/png]',
-            'foto2' => 'max_size[foto2,10240]|is_image[foto2]|mime_in[foto2,image/jpg,image/jpeg,image/png]',
-        ])) {
+        if (!$this->validate($this->validation_rules)) {
             $validation = \Config\Services::validation();
-            session()->setFlashdata('pesan', 'Pastikan data yang anda masukkan sudah benar!');
-            return redirect()->to('/tambahKos');
+            // session()->setFlashdata('validation' => , 'Pastikan Foto yang anda masukkan sudah benar!');
+            // return redirect()->to('/tambahKos');
+            // return redirect()->to('/tambahKos')->withInput()->with('validation', $validation);
+            $profil = user();
+            $data_lama = $this->request->getVar();
+            $data = [
+                "title" => "Tambah Kos | SahabatRantauKu.com",
+                "data_profil" => $profil,
+                'validation' => $validation,
+                'lama' => $data_lama,
+            ];
+            return view('kos/tambahKos', $data);
+        }
+
+        // Mengambil file foto
+        if ($this->request->getFile('thumbnail')->getError() == 4) {
+            session()->setFlashdata('pesan', 'Pastikan Anda memasukkan minimal satu foto pada bagian foto utama!');
+            return redirect()->to('/tambahKos')->withInput();
+        } else {
+            $file_thumbnail = $this->request->getFile('thumbnail');
+            if ($file_thumbnail->getSize() <= 10240000) {
+                $ext = $file_thumbnail->getMimeType();
+                if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
+                    $nama_thumbnail = $file_thumbnail->getRandomName();
+                    $file_thumbnail->move('assets/images', $nama_thumbnail);
+                } else {
+                    session()->setFlashdata('pesan', 'Pastikan yang anda masukkan adalah foto!');
+                    return redirect()->to('/tambahKos')->withInput();
+                }
+            } else {
+                session()->setFlashdata('pesan', 'Pastikan ukuran foto kurang dari 10MB !');
+                return redirect()->to('/tambahKos')->withInput();
+            }
+        }
+        if ($this->request->getFile('foto1')->getError() == 4) {
+            $file_foto1 = null;
+            $nama_foto1 = null;
+        } else {
+            $file_foto1 = $this->request->getFile('foto1');
+            if ($file_foto1->getSize() <= 10240000) {
+                $ext = $file_foto1->getMimeType();
+                if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
+                    $nama_foto1 = $file_foto1->getRandomName();
+                    $file_foto1->move('assets/images', $nama_foto1);
+                } else {
+                    session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
+                    return redirect()->to('/tambahKos')->withInput();
+                }
+            } else {
+                session()->setFlashdata('pesan', 'Pastikan ukuran foto kurang dari 10MB !');
+                return redirect()->to('/tambahKos')->withInput();
+            }
+        }
+        if ($this->request->getFile('foto2')->getError() == 4) {
+            $file_foto2 = null;
+            $nama_foto2 = null;
+        } else {
+            $file_foto2 = $this->request->getFile('foto2');
+            if ($file_foto2->getSize() <= 10240000) {
+                $ext = $file_foto2->getMimeType();
+                if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
+                    $nama_foto2 = $file_foto2->getRandomName();
+                    $file_foto2->move('assets/images', $nama_foto2);
+                } else {
+                    session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
+                    return redirect()->to('/tambahKos')->withInput();
+                }
+            } else {
+                session()->setFlashdata('pesan', 'Pastikan ukuran foto kurang dari 10MB !');
+                return redirect()->to('/tambahKos')->withInput();
+            }
+        }
+        if ($this->request->getFile('foto3')->getError() == 4) {
+            $file_foto3 = null;
+            $nama_foto3 = null;
+        } else {
+            $file_foto3 = $this->request->getFile('foto3');
+            if ($file_foto3->getSize() <= 10240000) {
+                $ext = $file_foto3->getMimeType();
+                if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
+                    $nama_foto3 = $file_foto3->getRandomName();
+                    $file_foto3->move('assets/images', $nama_foto3);
+                } else {
+                    session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
+                    return redirect()->to('/tambahKos')->withInput();
+                }
+            } else {
+                session()->setFlashdata('pesan', 'Pastikan ukuran foto kurang dari 10MB !');
+                return redirect()->to('/tambahKos')->withInput();
+            }
+        }
+        if ($this->request->getFile('foto4')->getError() == 4) {
+            $file_foto4 = null;
+            $nama_foto4 = null;
+        } else {
+            $file_foto4 = $this->request->getFile('foto4');
+            if ($file_foto4->getSize() <= 10240000) {
+                $ext = $file_foto4->getMimeType();
+                if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
+                    $nama_foto4 = $file_foto4->getRandomName();
+                    $file_foto4->move('assets/images', $nama_foto4);
+                } else {
+                    session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
+                    return redirect()->to('/tambahKos')->withInput();
+                }
+            } else {
+                session()->setFlashdata('pesan', 'Pastikan ukuran foto kurang dari 10MB !');
+                return redirect()->to('/tambahKos')->withInput();
+            }
+        }
+        if ($this->request->getFile('foto5')->getError() == 4) {
+            $file_foto5 = null;
+            $nama_foto5 = null;
+        } else {
+            $file_foto5 = $this->request->getFile('foto5');
+            if ($file_foto5->getSize() <= 10240000) {
+                $ext = $file_foto5->getMimeType();
+                if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
+                    $nama_foto5 = $file_foto5->getRandomName();
+                    $file_foto5->move('assets/images', $nama_foto5);
+                } else {
+                    session()->setFlashdata('pesan', 'Pastikan yang anda Upload adalah foto!');
+                    return redirect()->to('/tambahKos')->withInput();
+                }
+            } else {
+                session()->setFlashdata('pesan', 'Pastikan ukuran foto kurang dari 10MB !');
+                return redirect()->to('/tambahKos')->withInput();
+            }
         }
 
         // membuat string-> integer
         $user_id = (int)$this->request->getVar('user_id');
         $harga = (int)$this->request->getVar('harga');
         $kamar = (int)$this->request->getVar('kamar');
-
-        // Mengambil file foto
-        if ($this->request->getFile('thumbnail') == null) {
-            session()->setFlashdata('pesan', 'Pastikan Anda memasukkan minimal satu foto pada foto utama!');
-            return redirect()->to('/tambahKos');
-        } else {
-            $file_thumbnail = $this->request->getFile('thumbnail');
-            $nama_thumbnail = $file_thumbnail->getRandomName();
-            $file_thumbnail->move('assets/images', $nama_thumbnail);
-        }
-        if ($this->request->getVar('foto1')) {
-            $file_foto1 = $this->request->getFile('foto1');
-            $nama_foto1 = $file_foto1->getRandomName();
-            $file_foto1->move('assets/images', $nama_foto1);
-        } else {
-            $file_foto1 = null;
-            $nama_foto1 = null;
-        }
-        if ($this->request->getVar('foto2')) {
-            $file_foto2 = $this->request->getFile('foto2');
-            $nama_foto2 = $file_foto2->getRandomName();
-            $file_foto2->move('assets/images', $nama_foto2);
-        } else {
-            $file_foto2 = null;
-            $nama_foto2 = null;
-        }
 
         // membuat string-> Boolean
         if ($this->request->getVar('kamar_mandi_dalam') == "on") {
@@ -119,12 +266,38 @@ class Kos extends BaseController
         } else {
             $wifi = false;
         }
+        if ($this->request->getVar('cermin') == "on") {
+            $cermin = true;
+        } else {
+            $cermin = false;
+        }
+        if ($this->request->getVar('meja') == "on") {
+            $meja = true;
+        } else {
+            $meja = false;
+        }
+        if ($this->request->getVar('kursi') == "on") {
+            $kursi = true;
+        } else {
+            $kursi = false;
+        }
+        if ($this->request->getVar('bantal') == "on") {
+            $bantal = true;
+        } else {
+            $bantal = false;
+        }
+        if ($this->request->getVar('guling') == "on") {
+            $guling = true;
+        } else {
+            $guling = false;
+        }
 
         // mengambil nama provinsi dari kode
         $no_provinsi = $this->request->getVar('provinsi');
         $koneksi = mysqli_connect('localhost', 'root', '', 'saharaku');
         $provinsi_query = mysqli_query($koneksi, "SELECT * FROM wilayah_2022 WHERE kode=$no_provinsi");
         $provinsi = mysqli_fetch_array($provinsi_query);
+
         $this->kosModel->save([
             'nama' => $this->request->getVar('nama'),
             'harga' => $harga,
@@ -140,15 +313,19 @@ class Kos extends BaseController
             'kamar_mandi_dalam' => $kamar_mandi_dalam,
             'ac' => $ac,
             'wifi' => $wifi,
+            'cermin' => $cermin,
+            'meja' => $meja,
+            'kursi' => $kursi,
+            'bantal' => $bantal,
+            'guling' => $guling,
             'thumbnail' => $nama_thumbnail,
             'foto1' => $nama_foto1,
             'foto2' => $nama_foto2,
-            'foto3' => $this->request->getVar('foto3'),
-            'foto4' => $this->request->getVar('foto4'),
-            'foto5' => $this->request->getVar('foto5'),
+            'foto3' => $nama_foto3,
+            'foto4' => $nama_foto4,
+            'foto5' => $nama_foto5,
             'created_at' => Time::now(),
         ]);
-
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan!');
 
         return redirect()->to('/profil#pesanBerhasil');
@@ -163,6 +340,7 @@ class Kos extends BaseController
 
     public function editKos($id)
     {
+        session();
         $profil = user();
         $kos = $this->kosModel->getKos($id);
         // dd($kos);
@@ -170,53 +348,142 @@ class Kos extends BaseController
             "title" => "Edit Kos | SahabatRantauKu.com",
             "data_profil" => $profil,
             "data_kos" => $kos,
-            // 'validation' => \Config\Services::validation(),
+            'validation' => \Config\Services::validation(),
         ];
         return view('kos/editKos', $data);
     }
 
     public function updateKos($id)
     {
-        // dd($this->request->getVar());
-        // if (!$this->validate([
-        //     'thumbnail' => 'max_size[thumbnail,10240]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
-        //     'foto1' => 'max_size[foto1,10240]|is_image[foto1]|mime_in[foto1,image/jpg,image/jpeg,image/png]',
-        //     'foto2' => 'max_size[foto2,10240]|is_image[foto2]|mime_in[foto2,image/jpg,image/jpeg,image/png]',
-        // ])) {
-        //     $validation = \Config\Services::validation();
-        //     session()->setFlashdata('pesan', 'Pastikan data yang anda masukkan sudah benar!');
-        //     return redirect()->back();
-        // }
-
-        // dd($this->request->getFile('thumbnail'));
-        // membuat string-> integer
-        $harga = (int)$this->request->getVar('harga');
-        $kamar = (int)$this->request->getVar('kamar');
+        // Validasi awal
+        if (!$this->validate($this->validation_rules)) {
+            $validation = \Config\Services::validation();
+            // session()->setFlashdata('validation' => , 'Pastikan Foto yang anda masukkan sudah benar!');
+            // return redirect()->to('/tambahKos');
+            // return redirect()->to('/tambahKos')->withInput()->with('validation', $validation);
+            $profil = user();
+            $data = [
+                "title" => "Edit Kos | SahabatRantauKu.com",
+                "data_profil" => $profil,
+                'validation' => $validation,
+            ];
+            return view('kos/editKos', $data);
+        }
 
         // Mengambil file foto
-        // if ($this->request->getFile('thumbnail') == null) {
-        //     $nama_thumbnail = $this->request->getVar('thumbnail_lama');
-        // } else {
-        //     $file_thumbnail = $this->request->getFile('thumbnail');
-        //     $file_thumbnail->move('assets/images');
-        //     $nama_thumbnail = $file_thumbnail->getName();
-        // }
-        // if ($this->request->getVar('foto1')) {
-        //     $file_foto1 = $this->request->getFile('foto1');
-        //     $file_foto1->move('assets/images');
-        //     $nama_foto1 = $file_foto1->getName();
-        // } else {
-        //     $file_foto1 = null;
-        //     $nama_foto1 = $this->request->getVar('foto1_lama');
-        // }
-        // if ($this->request->getVar('foto2')) {
-        //     $file_foto2 = $this->request->getFile('foto2');
-        //     $file_foto2->move('assets/images');
-        //     $nama_foto2 = $file_foto2->getName();
-        // } else {
-        //     $file_foto2 = null;
-        //     $nama_foto2 = $this->request->getVar('foto2_lama');
-        // }
+        if ($this->request->getFile('thumbnail')->getError() == 4) {
+            $nama_thumbnail = $this->request->getVar('thumbnail_lama');
+        } else {
+            $file_thumbnail = $this->request->getFile('thumbnail');
+            if ($file_thumbnail->getSize() <= 10240000) {
+                $ext = $file_thumbnail->getMimeType();
+                if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
+                    $nama_thumbnail = $file_thumbnail->getRandomName();
+                    $file_thumbnail->move('assets/images', $nama_thumbnail);
+                } else {
+                    session()->setFlashdata('pesan', 'Pastikan yang anda masukkan adalah foto!');
+                    return redirect()->to('/editKos');
+                }
+            } else {
+                session()->setFlashdata('pesan', 'Pastikan ukuran foto kurang dari 10MB !');
+                return redirect()->to('/editKos');
+            }
+        }
+        if ($this->request->getFile('foto1')->getError() == 4) {
+            $nama_foto1 = $this->request->getVar('foto1_lama');
+        } else {
+            $file_foto1 = $this->request->getFile('foto1');
+            if ($file_foto1->getSize() <= 10240000) {
+                $ext = $file_foto1->getMimeType();
+                if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
+                    $nama_foto1 = $file_foto1->getRandomName();
+                    $file_foto1->move('assets/images', $nama_foto1);
+                } else {
+                    session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
+                    return redirect()->to('/editKos');
+                }
+            } else {
+                session()->setFlashdata('pesan', 'Pastikan ukuran foto kurang dari 10MB !');
+                return redirect()->to('/editKos');
+            }
+        }
+        if ($this->request->getFile('foto2')->getError() == 4) {
+            $nama_foto2 = $this->request->getVar('foto2_lama');
+        } else {
+            $file_foto2 = $this->request->getFile('foto2');
+            if ($file_foto2->getSize() <= 10240000) {
+                $ext = $file_foto2->getMimeType();
+                if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
+                    $nama_foto2 = $file_foto2->getRandomName();
+                    $file_foto2->move('assets/images', $nama_foto2);
+                } else {
+                    session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
+                    return redirect()->to('/editKos');
+                }
+            } else {
+                session()->setFlashdata('pesan', 'Pastikan ukuran foto kurang dari 10MB !');
+                return redirect()->to('/editKos');
+            }
+        }
+        if ($this->request->getFile('foto3')->getError() == 4) {
+            $nama_foto3 = $this->request->getVar('foto3_lama');
+        } else {
+            $file_foto3 = $this->request->getFile('foto3');
+            if ($file_foto3->getSize() <= 10240000) {
+                $ext = $file_foto3->getMimeType();
+                if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
+                    $nama_foto3 = $file_foto3->getRandomName();
+                    $file_foto3->move('assets/images', $nama_foto3);
+                } else {
+                    session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
+                    return redirect()->to('/editKos');
+                }
+            } else {
+                session()->setFlashdata('pesan', 'Pastikan ukuran foto kurang dari 10MB !');
+                return redirect()->to('/editKos');
+            }
+        }
+        if ($this->request->getFile('foto4')->getError() == 4) {
+            $nama_foto4 = $this->request->getVar('foto4_lama');
+        } else {
+            $file_foto4 = $this->request->getFile('foto4');
+            if ($file_foto4->getSize() <= 10240000) {
+                $ext = $file_foto4->getMimeType();
+                if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
+                    $nama_foto4 = $file_foto4->getRandomName();
+                    $file_foto4->move('assets/images', $nama_foto4);
+                } else {
+                    session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
+                    return redirect()->to('/editKos');
+                }
+            } else {
+                session()->setFlashdata('pesan', 'Pastikan ukuran foto kurang dari 10MB !');
+                return redirect()->to('/editKos');
+            }
+        }
+        if ($this->request->getFile('foto5')->getError() == 4) {
+            $nama_foto5 = $this->request->getVar('foto5_lama');
+        } else {
+            $file_foto5 = $this->request->getFile('foto5');
+            if ($file_foto5->getSize() <= 10240000) {
+                $ext = $file_foto5->getMimeType();
+                if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
+                    $nama_foto5 = $file_foto5->getRandomName();
+                    $file_foto5->move('assets/images', $nama_foto5);
+                } else {
+                    session()->setFlashdata('pesan', 'Pastikan yang anda Upload adalah foto!');
+                    return redirect()->to('/editKos');
+                }
+            } else {
+                session()->setFlashdata('pesan', 'Pastikan ukuran foto kurang dari 10MB !');
+                return redirect()->to('/editKos');
+            }
+        }
+
+        // membuat string-> integer
+        $user_id = (int)$this->request->getVar('user_id');
+        $harga = (int)$this->request->getVar('harga');
+        $kamar = (int)$this->request->getVar('kamar');
 
         // membuat string-> Boolean
         if ($this->request->getVar('kamar_mandi_dalam') == "on") {
@@ -234,13 +501,39 @@ class Kos extends BaseController
         } else {
             $wifi = false;
         }
+        if ($this->request->getVar('cermin') == "on") {
+            $cermin = true;
+        } else {
+            $cermin = false;
+        }
+        if ($this->request->getVar('meja') == "on") {
+            $meja = true;
+        } else {
+            $meja = false;
+        }
+        if ($this->request->getVar('kursi') == "on") {
+            $kursi = true;
+        } else {
+            $kursi = false;
+        }
+        if ($this->request->getVar('bantal') == "on") {
+            $bantal = true;
+        } else {
+            $bantal = false;
+        }
+        if ($this->request->getVar('guling') == "on") {
+            $guling = true;
+        } else {
+            $guling = false;
+        }
 
-        // mengambil nama provinsi dari kode
-        $test = [
+        $this->kosModel->save([
             'id' => $id,
             'nama' => $this->request->getVar('nama'),
             'harga' => $harga,
             'kamar' => $kamar,
+            'pemilik' => $this->request->getVar('pemilik'),
+            'user_id' => $user_id,
             'wa' => $this->request->getVar('wa'),
             'deskripsi' => $this->request->getVar('deskripsi'),
             'tipe' => $this->request->getVar('tipe'),
@@ -248,14 +541,19 @@ class Kos extends BaseController
             'kamar_mandi_dalam' => $kamar_mandi_dalam,
             'ac' => $ac,
             'wifi' => $wifi,
-            // 'thumbnail' => $nama_thumbnail,
-            // 'foto1' => $nama_foto1,
-            // 'foto2' => $nama_foto2,
-            'foto3' => $this->request->getVar('foto3'),
-            'foto4' => $this->request->getVar('foto4'),
-            'foto5' => $this->request->getVar('foto5'),
+            'cermin' => $cermin,
+            'meja' => $meja,
+            'kursi' => $kursi,
+            'bantal' => $bantal,
+            'guling' => $guling,
+            'thumbnail' => $nama_thumbnail,
+            'foto1' => $nama_foto1,
+            'foto2' => $nama_foto2,
+            'foto3' => $nama_foto3,
+            'foto4' => $nama_foto4,
+            'foto5' => $nama_foto5,
             'updated_at' => Time::now(),
-        ];
+        ]);
         session()->setFlashdata('pesan', 'Data berhasil diubah!');
 
         return redirect()->to('/profil#pesanBerhasil');
