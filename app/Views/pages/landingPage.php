@@ -99,7 +99,7 @@
                                                 <?php endif; ?>
                                             </ul>
                                             <!-- END FITUR KOS -->
-                                            <p class="card-text fw-bolder fs-5"><small>Rp. <?= $rekomendasi_kos[0]['harga']; ?> / Bulan</small></p>
+                                            <p class="card-text fw-bolder fs-5"><small>Rp. <?= number_format((int)$rekomendasi_kos[0]['harga'], 0, ",", "."); ?> / bulan</small></p>
                                             <a href="/kos/<?= $rekomendasi_kos[0]['id']; ?>"><button type="button" class="btn btn-dark w-lg-25 mb-3">Lihat Selengkapnya</button></a>
                                         </div>
                                     </div>
@@ -135,7 +135,7 @@
                                                 <?php endif; ?>
                                             </ul>
                                             <!-- END FITUR KOS -->
-                                            <p class="card-text fw-bolder fs-5"><small>Rp. <?= $rekomendasi_kos[1]['harga']; ?> / Bulan</small></p>
+                                            <p class="card-text fw-bolder fs-5"><small>Rp. <?= number_format((int)$rekomendasi_kos[1]['harga'], 0, ",", "."); ?> / bulan</small></p>
                                             <a href="/kos/<?= $rekomendasi_kos[1]['id']; ?>"><button type="button" class="btn btn-dark w-lg-25 mb-3">Lihat Selengkapnya</button></a>
                                         </div>
                                     </div>
@@ -171,7 +171,7 @@
                                                 <?php endif; ?>
                                             </ul>
                                             <!-- END FITUR KOS -->
-                                            <p class="card-text fw-bolder fs-5"><small>Rp. <?= $rekomendasi_kos[2]['harga']; ?> / Bulan</small></p>
+                                            <p class="card-text fw-bolder fs-5"><small>Rp. <?= number_format((int)$rekomendasi_kos[2]['harga'], 0, ",", "."); ?> / bulan</small></p>
                                             <a href="/kos/<?= $rekomendasi_kos[2]['id']; ?>"><button type="button" class="btn btn-dark w-lg-25 mb-3">Lihat Selengkapnya</button></a>
                                         </div>
                                     </div>

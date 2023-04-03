@@ -21,28 +21,33 @@
                     <div class="col-lg-5">
                         <div class="container-fluid mx-0 px-0 mb-5 pb-3">
                             <div id="carouselExampleDark" class="carousel carousel-dark slide">
-                                <div class="carousel-indicators" style="margin-bottom: -20px;">
-                                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" style="width: 100px;">
-                                        <img class="d-block w-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['thumbnail']; ?>" class="img-fluid" />
+                                <div class="carousel-indicators" style="margin-bottom: -70px;">
+                                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" style="width: 100px; height:50px;">
+                                        <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['thumbnail']; ?>" class="img-fluid" />
                                     </button>
                                     <?php if ($data_kos['foto1']) : ?>
-                                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2" style="width: 100px;">
-                                            <img class="d-block w-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto1']; ?>" />
+                                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2" style="width: 100px; height:50px;">
+                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto1']; ?>" />
                                         </button>
                                     <?php endif ?>
                                     <?php if ($data_kos['foto2']) : ?>
-                                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3" style="width: 100px;">
-                                            <img class="d-block w-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto2']; ?>" class="img-fluid" />
+                                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3" style="width: 100px; height:50px;">
+                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto2']; ?>" class="img-fluid" />
                                         </button>
                                     <?php endif ?>
                                     <?php if ($data_kos['foto3']) : ?>
-                                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4" style="width: 100px;">
-                                            <img class="d-block w-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto3']; ?>" class="img-fluid" />
+                                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4" style="width: 100px; height:50px;">
+                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto3']; ?>" class="img-fluid" />
                                         </button>
                                     <?php endif ?>
                                     <?php if ($data_kos['foto4']) : ?>
-                                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5" style="width: 100px;">
-                                            <img class="d-block w-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto4']; ?>" class="img-fluid" />
+                                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5" style="width: 100px; height:50px;">
+                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto4']; ?>" class="img-fluid" />
+                                        </button>
+                                    <?php endif ?>
+                                    <?php if ($data_kos['foto5']) : ?>
+                                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="5" aria-label="Slide 6" style="width: 100px; height:50px;">
+                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto5']; ?>" class="img-fluid" />
                                         </button>
                                     <?php endif ?>
                                 </div>
@@ -76,11 +81,11 @@
                                         </div>
                                     <?php endif ?>
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev" style="margin-left: -47px;">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Previous</span>
                                 </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next" style="margin-right: -47px;">
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Next</span>
                                 </button>
@@ -97,16 +102,22 @@
                             <p class="mb-1 fw-semibold">Nama Pemilik : <?= $data_kos['pemilik']; ?></p>
                             <a href="#Hubungi"><button class="float-end rounded btn btn-outline-info btn-sm">Hubungi Pemilik</button></a>
                             <p class="mb-1 fw-semibold">No WA : <?= $data_kos['wa']; ?></p>
-                            <p class="mb-1 fw-semibold">Harga : Rp. <?= $data_kos['harga']; ?> / Bulan</p>
+                            <p class="mb-1 fw-semibold">Harga : Rp. <?= number_format((int)$data_kos['harga'], 0, ",", "."); ?> / bulan</p>
                         </div>
                         <!-- <button type="button" class="btn btn-outline-dark">Lihat Lokasi di Google Maps</button> -->
                     </div>
                     <!-- END SECTION Deskripsi Kanan -->
                 </div>
                 <!-- SECTION Deskripsi Bawah -->
-                <div class="row py-3 mt-4">
+                <div class="row py-1 mt-4">
                     <h3 class="fw-bolder">Deskripsi Kos</h3>
-                    <p class="mb-0 "><?= $data_kos['deskripsi']; ?></p>
+                    <p class="mb-0 "><?= $data_kos['deskripsi'] . " Selain itu, juga sudah dilengkapi dengan "; ?>
+                        <?php ($data_kos['cermin'] ? print "Cermin, " : print "") ?>
+                        <?php ($data_kos['meja'] ? print "meja, " : print "") ?>
+                        <?php ($data_kos['kursi'] ? print "kursi, " : print "") ?>
+                        <?php ($data_kos['bantal'] ? print "bantal, " : print "") ?>
+                        <?php ($data_kos['guling'] ? print "guling, " : print "") . "sebagai bagian dari fasilitas yang disediakan pada " ?>
+                        <?= "kos " . $data_kos['nama'] . " ini." ?></p>
                 </div>
                 <!-- END SECTION Deskripsi Bawah -->
                 <!-- SECTION Fasilitas & Chat -->

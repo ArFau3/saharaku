@@ -91,6 +91,7 @@
                         </div>
                         <div class="col-8">
                             <input type="number" id="harga" value="<?= $data_kos['harga']; ?>" name="harga" class="form-control" aria-describedby="passwordHelpInline">
+                            <div id="harga" class="form-text">Masukkan hanya <u><b>ANGKA</b></u> tanpa koma(,) atau titik (.)</div>
                         </div>
                         <div class="col"></div>
                     </div>
@@ -200,6 +201,29 @@
                         <div class="col-1">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch" id="kamar_mandi_dalam" name="kamar_mandi_dalam" <?php $data_kos['kamar_mandi_dalam'] ? print "checked" : print "" ?>>
+                            </div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3 col-lg-2">
+                        </div>
+                        <div class="col-1">
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="container my-2" style="background-color: rgba(240, 235, 235, .5);">
+                    <div class="row g-3 align-items-center">
+                        <div class="col"></div>
+                        <div class="col-3">
+                            <label for="kipas" class="col-form-label">Kipas Angin dalam Kamar :</label>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="kipas" name="kipas" <?php $data_kos['kipas'] ? print "checked" : print "" ?>>
                             </div>
                         </div>
                         <div class="col-1"></div>

@@ -91,7 +91,7 @@
                                     <div class="col-md-8">
                                         <div class="card-body mx-4">
                                             <h5 class="card-title"><?= $data_kos['nama']; ?></h5>
-                                            <h5 class="card-title mb-2">Rp.<?= $data_kos['harga']; ?> per bulan</h5>
+                                            <h5 class="card-title mb-2">Rp. <?= number_format((int)$data_kos['harga'], 0, ",", "."); ?> / bulan</h5>
                                             <?php if ($data_kos['tipe'] == 'Kos Putra') : ?>
                                                 <span class="badge text-bg-primary">Kos Putra</span>
                                             <?php elseif ($data_kos['tipe'] == 'Kos Putri') : ?>

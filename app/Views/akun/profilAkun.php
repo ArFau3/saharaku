@@ -104,8 +104,10 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body mx-4">
-                                        <h5 class="card-title"><?= $data_kos['nama']; ?></h5>
-                                        <h5 class="card-title">Rp.<?= $data_kos['harga']; ?> per bulan</h5>
+                                        <a href="/kos/<?= $data_kos['id']; ?>">
+                                            <h5 class="card-title"><?= $data_kos['nama']; ?></h5>
+                                        </a>
+                                        <h5 class="card-title">Rp. <?= number_format((int)$data_kos['harga'], 0, ",", "."); ?> / bulan</h5>
                                         <p class="card-text"><?= $data_kos['alamat']; ?>, <?= $data_kos['kabupaten']; ?>, <?= $data_kos['provinsi']; ?></p>
                                         <p class="card-title"><?= $data_kos['deskripsi']; ?></p>
                                         <div class="row text-center mb-3">

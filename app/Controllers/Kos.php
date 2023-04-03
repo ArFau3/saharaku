@@ -250,6 +250,24 @@ class Kos extends BaseController
         $harga = (int)$this->request->getVar('harga');
         $kamar = (int)$this->request->getVar('kamar');
 
+        //Mengolah nomor hp 08->628
+        //Terlebih dahulu kita trim dl
+        $nomorhp = trim($this->request->getVar('wa'));
+        //bersihkan dari karakter yang tidak perlu
+        $nomorhp = strip_tags($nomorhp);
+
+        //cek apakah mengandung karakter + dan 0-9
+        if (!preg_match('/[^+0-9]/', trim($nomorhp))) {
+            // cek apakah no hp karakter 1-3 adalah +62
+            if (substr(trim($nomorhp), 0, 3) == '+62') {
+                $nomorhp = substr($nomorhp, 1);
+            }
+            // cek apakah no hp karakter 1 adalah 0
+            elseif (substr($nomorhp, 0, 1) == '0') {
+                $nomorhp = '62' . substr($nomorhp, 1);
+            }
+        }
+
         // membuat string-> Boolean
         if ($this->request->getVar('kamar_mandi_dalam') == "on") {
             $kamar_mandi_dalam = true;
@@ -260,6 +278,11 @@ class Kos extends BaseController
             $ac = true;
         } else {
             $ac = false;
+        }
+        if ($this->request->getVar('kipas') == "on") {
+            $kipas = true;
+        } else {
+            $kipas = false;
         }
         if ($this->request->getVar('wifi') == "on") {
             $wifi = true;
@@ -304,7 +327,7 @@ class Kos extends BaseController
             'kamar' => $kamar,
             'pemilik' => $this->request->getVar('pemilik'),
             'user_id' => $user_id,
-            'wa' => $this->request->getVar('wa'),
+            'wa' => $nomorhp,
             'deskripsi' => $this->request->getVar('deskripsi'),
             'tipe' => $this->request->getVar('tipe'),
             'provinsi' => $provinsi['nama'],
@@ -312,6 +335,7 @@ class Kos extends BaseController
             'alamat' => $this->request->getVar('alamat'),
             'kamar_mandi_dalam' => $kamar_mandi_dalam,
             'ac' => $ac,
+            'kipas' => $kipas,
             'wifi' => $wifi,
             'cermin' => $cermin,
             'meja' => $meja,
@@ -485,6 +509,24 @@ class Kos extends BaseController
         $harga = (int)$this->request->getVar('harga');
         $kamar = (int)$this->request->getVar('kamar');
 
+        //Mengolah nomor hp 08->628
+        //Terlebih dahulu kita trim dl
+        $nomorhp = trim($this->request->getVar('wa'));
+        //bersihkan dari karakter yang tidak perlu
+        $nomorhp = strip_tags($nomorhp);
+
+        //cek apakah mengandung karakter + dan 0-9
+        if (!preg_match('/[^+0-9]/', trim($nomorhp))) {
+            // cek apakah no hp karakter 1-3 adalah +62
+            if (substr(trim($nomorhp), 0, 3) == '+62') {
+                $nomorhp = substr($nomorhp, 1);
+            }
+            // cek apakah no hp karakter 1 adalah 0
+            elseif (substr($nomorhp, 0, 1) == '0') {
+                $nomorhp = '62' . substr($nomorhp, 1);
+            }
+        }
+
         // membuat string-> Boolean
         if ($this->request->getVar('kamar_mandi_dalam') == "on") {
             $kamar_mandi_dalam = true;
@@ -495,6 +537,11 @@ class Kos extends BaseController
             $ac = true;
         } else {
             $ac = false;
+        }
+        if ($this->request->getVar('kipas') == "on") {
+            $kipas = true;
+        } else {
+            $kipas = false;
         }
         if ($this->request->getVar('wifi') == "on") {
             $wifi = true;
@@ -534,12 +581,13 @@ class Kos extends BaseController
             'kamar' => $kamar,
             'pemilik' => $this->request->getVar('pemilik'),
             'user_id' => $user_id,
-            'wa' => $this->request->getVar('wa'),
+            'wa' => $nomorhp,
             'deskripsi' => $this->request->getVar('deskripsi'),
             'tipe' => $this->request->getVar('tipe'),
             'alamat' => $this->request->getVar('alamat'),
             'kamar_mandi_dalam' => $kamar_mandi_dalam,
             'ac' => $ac,
+            'kipas' => $kipas,
             'wifi' => $wifi,
             'cermin' => $cermin,
             'meja' => $meja,
