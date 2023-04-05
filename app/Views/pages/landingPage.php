@@ -27,7 +27,7 @@
                 <div class="row text-center my-3 gy-4">
                     <div class="col-lg-3">
                         <div class="card border border-1 shadow-lg mx-auto  py-4" style="width: 15rem; height: 13rem;">
-                            <img src="assets/images/LogoSaharaKu.png" class="card-img-top h-50" style="object-fit: scale-down;" alt="...">
+                            <img src="assets/images/web/data.jpg" class="card-img-top" style="object-fit: scale-down; height:65%;" alt="...">
                             <div class="card-body">
                                 <p class="card-text fw-bold fs-6">Data dan Informasi yang Selalu Update</p>
                             </div>
@@ -36,7 +36,7 @@
                     <div class="col"></div>
                     <div class="col-lg-3">
                         <div class="card border border-1 shadow-lg mx-auto  py-4" style="width: 15rem; height: 13rem;">
-                            <img src="assets/images/LogoSaharaKu.png" class="card-img-top h-50" style="object-fit: scale-down;" alt="...">
+                            <img src="assets/images/web/information.jpg" class="card-img-top" style="object-fit: scale-down; height:65%;" alt="...">
                             <div class="card-body">
                                 <p class="card-text fw-bold fs-6">Informasi yang Terpercaya</p>
                             </div>
@@ -45,7 +45,7 @@
                     <div class="col"></div>
                     <div class="col-lg-3">
                         <div class="card border border-1 shadow-lg mx-auto  py-4" style="width: 15rem; height: 13rem;">
-                            <img src="assets/images/LogoSaharaKu.png" class="card-img-top h-50" style="object-fit: scale-down;" alt="...">
+                            <img src="assets/images/web/customer-service.jpg" class="card-img-top " style="object-fit: scale-down; height:65%;" alt="...">
                             <div class="card-body">
                                 <p class="card-text fw-bold fs-6">Bantuan Perantau selama 24 Jam Penuh </p>
                             </div>
@@ -200,8 +200,8 @@
             <h4 class="py-4">Tempat Tinggal Apa Saja yang Ada di SAHARA</h4>
             <div class="row text-center my-3 gy-4">
                 <div class="col-lg-3">
-                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary mx-auto py-4" style="width: 13rem; height: 15rem;">
-                        <img src="assets/icons/person-simple.png" class="card-img-top object-fit-scale h-75" alt="...">
+                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-white mx-auto py-4" style="width: 13rem; height: 15rem;">
+                        <img src="assets/images/web/putra.jpg" class="card-img-top object-fit-scale h-75" alt="...">
                         <div class="card-body">
                             <p class="card-text fw-bold fs-6">Kost Putra</p>
                         </div>
@@ -209,8 +209,8 @@
                 </div>
                 <div class="col"></div>
                 <div class="col-lg-3">
-                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary mx-auto py-4" style="width: 13rem; height: 15rem;">
-                        <img src="assets/icons/woman-head.png" class="card-img-top object-fit-scale h-75" alt="...">
+                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-white mx-auto py-4" style="width: 13rem; height: 15rem;">
+                        <img src="assets/images/web/putri.jpg" class="card-img-top object-fit-scale h-75" alt="...">
                         <div class="card-body">
                             <p class="card-text fw-bold fs-6">Kost Putri</p>
                         </div>
@@ -218,8 +218,8 @@
                 </div>
                 <div class="col"></div>
                 <div class="col-lg-3">
-                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary mx-auto py-4" style="width: 13rem; height: 15rem;">
-                        <img src="assets/icons/restroom-simple.png" class="card-img-top object-fit-scale h-75" alt="...">
+                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-white mx-auto py-4" style="width: 13rem; height: 15rem;">
+                        <img src="assets/images/web/kost-campuran.jpg" class="card-img-top object-fit-scale h-75" alt="...">
                         <div class="card-body">
                             <p class="card-text fw-bold fs-6">Kost Campuran</p>
                         </div>
@@ -229,8 +229,8 @@
             <div class="row text-center my-3 gy-4">
                 <div class="col-2"></div>
                 <div class="col-lg-3">
-                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary mx-auto py-4" style="width: 13rem; height: 15rem;">
-                        <img src="assets/icons/people.png" class="card-img-top object-fit-scale h-75" alt="...">
+                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-white mx-auto py-4" style="width: 13rem; height: 15rem;">
+                        <img src="assets/images/web/kost-pasutri.jpg" class="card-img-top object-fit-scale h-75" alt="...">
                         <div class="card-body">
                             <p class="card-text fw-bold fs-6">Kost Pasutri</p>
                         </div>
@@ -238,8 +238,8 @@
                 </div>
                 <div class="col"></div>
                 <div class="col-lg-3">
-                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-body-tertiary mx-auto py-4" style="width: 13rem; height: 15rem;">
-                        <img src="assets/icons/house-building.png" class="card-img-top object-fit-scale h-75" alt="...">
+                    <div class="card border border-4 border-top-0 border-start-0 shadow bg-white mx-auto py-4" style="width: 13rem; height: 15rem;">
+                        <img src="assets/images/web/kontrakan.jpg" class="card-img-top object-fit-scale h-75" alt="...">
                         <div class="card-body">
                             <p class="card-text fw-bold fs-6">Kontrakan</p>
                         </div>

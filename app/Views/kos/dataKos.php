@@ -143,7 +143,8 @@
                     <div class="col-lg-6 text-center mt-4 mt-lg-0">
                         <h3 class="fw-bolder">Hubungi Pemilik</h3>
                         <form action="/hubungi" method="post">
-                            <input type="hidden" id="nomor" name="user_id" value="<?= $data_kos['wa']; ?>">
+                            <input type="hidden" id="nomor" name="nomor" value="<?= $data_kos['wa']; ?>">
+                            <input type="hidden" id="tipe" name="tipe" value="<?= $data_kos['tipe']; ?>">
                             <input type="text" name="nama_penghubung" id="nama_penghubung" class="form-control" id="exampleFormControlInput1" placeholder="Nama :">
                             <!-- <input type="text" name="hp" id="hp" class="form-control" id="exampleFormControlInput1" placeholder="No. Hp :">
                             <input type="email" name="email" id="email" class="form-control" id="exampleFormControlInput1" placeholder="Email :"> -->

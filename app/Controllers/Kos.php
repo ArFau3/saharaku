@@ -609,6 +609,10 @@ class Kos extends BaseController
 
     public function hubungi()
     {
-        return redirect()->to('https://api.whatsapp.com/send?phone=' . $this->request->getVar('nomor') . '&text=Halo, nama saya ' . $this->request->getVar('nama_penghubung') . ', ' . $this->request->getVar('pesan'));
+        if ($this->request->getVar('tipe') == 'Kontrakan') {
+            return redirect()->to('https://api.whatsapp.com/send?phone=' . $this->request->getVar('nomor') . '&text=Halo, nama saya ' . $this->request->getVar('nama_penghubung') . ', saya mendapatkan informasi kontrakan ini dari website sahabatrantauku.com. ' . $this->request->getVar('pesan'));
+        } else {
+            return redirect()->to('https://api.whatsapp.com/send?phone=' . $this->request->getVar('nomor') . '&text=Halo, nama saya ' . $this->request->getVar('nama_penghubung') . ', saya mendapatkan informasi kos ini dari website sahabatrantauku.com. ' . $this->request->getVar('pesan'));
+        }
     }
 }
