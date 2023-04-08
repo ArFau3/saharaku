@@ -97,12 +97,24 @@
                     <!-- SECTION Deskripsi Kanan -->
                     <div class="col-lg-6 ">
                         <h3 class="fw-bolder mt-4 mt-lg-0"><?= $data_kos['nama']; ?></h3>
-                        <div class="container my-3 p-0">
+                        <?php if ($data_kos['tipe'] == 'Kos Putra') : ?>
+                            <span class="badge text-bg-primary">Kos Putra</span>
+                        <?php elseif ($data_kos['tipe'] == 'Kos Putri') : ?>
+                            <span class="badge text-bg-warning">Kos Putri</span>
+                        <?php elseif ($data_kos['tipe'] == 'Kos Campur') : ?>
+                            <span class="badge text-bg-danger">Kos Campuran</span>
+                        <?php elseif ($data_kos['tipe'] == 'Kos Pasutri') : ?>
+                            <span class="badge text-bg-success">Kos Pasutri</span>
+                        <?php elseif ($data_kos['tipe'] == 'Kontrakan') : ?>
+                            <span class="badge text-bg-secondary">Kontrakan</span>
+                        <?php endif; ?>
+                        <div class="container my-2 p-0">
                             <p class="mb-1 fw-semibold"><?= $data_kos['alamat']; ?>, <?= $data_kos['kabupaten']; ?>, <?= $data_kos['provinsi']; ?></p>
                             <p class="mb-1 fw-semibold">Nama Pemilik : <?= $data_kos['pemilik']; ?></p>
                             <a href="#Hubungi"><button class="float-end rounded btn btn-outline-info btn-sm">Hubungi Pemilik</button></a>
                             <p class="mb-1 fw-semibold">No WA : <?= $data_kos['wa']; ?></p>
                             <p class="mb-1 fw-semibold">Harga : Rp. <?= number_format((int)$data_kos['harga'], 0, ",", "."); ?> / bulan</p>
+                            <p class="mb-1 fw-semibold">Jumlah Kamar : <?php $data_kos['kamar'] ? print $data_kos['kamar'] : print "<u><i>Tidak ada data<i></u>"; ?></p>
                         </div>
                         <!-- <button type="button" class="btn btn-outline-dark">Lihat Lokasi di Google Maps</button> -->
                     </div>
@@ -111,13 +123,13 @@
                 <!-- SECTION Deskripsi Bawah -->
                 <div class="row py-1 mt-4">
                     <h3 class="fw-bolder">Deskripsi Kos</h3>
-                    <p class="mb-0 "><?= $data_kos['deskripsi'] . " Selain itu, juga sudah dilengkapi dengan "; ?>
+                    <p class="mb-0 "><?= $data_kos['deskripsi'] . ". Selain itu, juga sudah dilengkapi dengan "; ?>
                         <?php ($data_kos['cermin'] ? print "Cermin, " : print "") ?>
                         <?php ($data_kos['meja'] ? print "meja, " : print "") ?>
                         <?php ($data_kos['kursi'] ? print "kursi, " : print "") ?>
                         <?php ($data_kos['bantal'] ? print "bantal, " : print "") ?>
-                        <?php ($data_kos['guling'] ? print "guling, " : print "") . "sebagai bagian dari fasilitas yang disediakan pada " ?>
-                        <?= "kos " . $data_kos['nama'] . " ini." ?></p>
+                        <?php ($data_kos['guling'] ? print "guling, " : print "") ?>
+                        <?= "sebagai bagian dari fasilitas yang disediakan pada kos " . $data_kos['nama'] . " ini." ?></p>
                 </div>
                 <!-- END SECTION Deskripsi Bawah -->
                 <!-- SECTION Fasilitas & Chat -->
@@ -131,7 +143,11 @@
                             </li>
                             <li class="list-group-item">
                                 <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox" disabled <?php $data_kos['ac'] ? print "checked" : "" ?> style="opacity:1;">
-                                <label class="form-check-label" for="secondCheckbox" style="opacity:1;">Sudah disertai AC</label>
+                                <label class="form-check-label" for="secondCheckbox" style="opacity:1;">Sudah Disertai AC</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox" disabled <?php $data_kos['kipas'] ? print "checked" : "" ?> style="opacity:1;">
+                                <label class="form-check-label" for="secondCheckbox" style="opacity:1;">Dilengkapi Kipas Angin</label>
                             </li>
                             <li class="list-group-item">
                                 <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox" disabled <?php $data_kos['wifi'] ? print "checked" : "" ?> style="opacity:1;">
@@ -145,7 +161,7 @@
                         <form action="/hubungi" method="post">
                             <input type="hidden" id="nomor" name="nomor" value="<?= $data_kos['wa']; ?>">
                             <input type="hidden" id="tipe" name="tipe" value="<?= $data_kos['tipe']; ?>">
-                            <input type="text" name="nama_penghubung" id="nama_penghubung" class="form-control" id="exampleFormControlInput1" placeholder="Nama :">
+                            <input type="text" name="nama_penghubung" id="nama_penghubung" class="form-control" id="exampleFormControlInput1" placeholder="Nama Anda :">
                             <!-- <input type="text" name="hp" id="hp" class="form-control" id="exampleFormControlInput1" placeholder="No. Hp :">
                             <input type="email" name="email" id="email" class="form-control" id="exampleFormControlInput1" placeholder="Email :"> -->
                             <textarea name="pesan" id="pesan" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Pesan :"></textarea>

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\KosModel;
+use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
@@ -48,6 +49,7 @@ abstract class BaseController extends Controller
      * Constructor.
      */
     protected $kosModel;
+    protected $userModel;
     // protected $db;
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -58,5 +60,6 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
         $this->kosModel = new \App\Models\KosModel();
+        $this->userModel = new \App\Models\UserModel();
     }
 }

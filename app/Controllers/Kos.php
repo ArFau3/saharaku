@@ -352,14 +352,14 @@ class Kos extends BaseController
         ]);
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan!');
 
-        return redirect()->to('/profil#pesanBerhasil');
+        return redirect()->to('/profil#kelolaKos');
     }
 
     public function hapusKos($id)
     {
         $this->kosModel->delete($id);
         session()->setFlashdata('pesan', 'Data berhasil dihapus!');
-        return redirect()->to('/profil#pesanBerhasil');
+        return redirect()->to('/profil#kelolaKos');
     }
 
     public function editKos($id)
@@ -604,7 +604,7 @@ class Kos extends BaseController
         ]);
         session()->setFlashdata('pesan', 'Data berhasil diubah!');
 
-        return redirect()->to('/profil#pesanBerhasil');
+        return redirect()->to('/profil#kelolaKos');
     }
 
     public function hubungi()

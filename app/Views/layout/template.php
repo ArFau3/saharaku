@@ -156,6 +156,19 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script>
+        function previewImgProfil() {
+            const foto = document.querySelector('#profil');
+            const img_preview = document.querySelector('.img-preview-profil');
+
+            const file_profil = new FileReader();
+            file_profil.readAsDataURL(profil.files[0]);
+
+            file_profil.onload = function(e) {
+                img_preview.src = e.target.result;
+            }
+        }
+    </script>
+    <script>
         function previewImg() {
             const thumbnail = document.querySelector('#thumbnail');
             const img_preview = document.querySelector('.img-preview');
