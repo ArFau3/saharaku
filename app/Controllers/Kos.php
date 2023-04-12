@@ -86,6 +86,24 @@ class Kos extends BaseController
             "title" => "Info Kos | SahabatRantauKu.com",
             "data_kos" => $kos,
         ];
+
+        // Menyimpan riwayat lihat kos
+        $id_kos = (int)$kos['id'];
+        if (logged_in()) {
+            $user = user();
+            $pengunjung = $user->username;;
+        } else {
+            $pengunjung = 'guest';
+        }
+
+        $this->LihatKosModel->save([
+            'pengunjung' => $pengunjung,
+            'nama_kos' => $kos['nama'],
+            'id_kos' => $id_kos,
+            'created_at' => Time::now(),
+        ]);
+
+        // mengalihkan ke halaman infokos
         return view('kos/dataKos', $data);
     }
 
@@ -609,6 +627,18 @@ class Kos extends BaseController
 
     public function hubungi()
     {
+        // Menyimpan Riwayat Chat
+        $id_kos = (int)$this->request->getVar('id_kos');
+
+        $this->chatModel->save([
+            'nama' => $this->request->getVar('nama_penghubung'),
+            'kos' => $this->request->getVar('nama_kos'),
+            'pesan' => $this->request->getVar('pesan'),
+            'created_at' => Time::now(),
+            'id_kos' => $id_kos,
+        ]);
+
+        // Mengalihkan ke WA
         if ($this->request->getVar('tipe') == 'Kontrakan') {
             return redirect()->to('https://api.whatsapp.com/send?phone=' . $this->request->getVar('nomor') . '&text=Halo, nama saya ' . $this->request->getVar('nama_penghubung') . ', saya mendapatkan informasi kontrakan ini dari website sahabatrantauku.com. ' . $this->request->getVar('pesan'));
         } else {

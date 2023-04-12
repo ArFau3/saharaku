@@ -50,6 +50,8 @@ abstract class BaseController extends Controller
      */
     protected $kosModel;
     protected $userModel;
+    protected $chatModel;
+    protected $LihatKosModel;
     // protected $db;
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -61,5 +63,7 @@ abstract class BaseController extends Controller
         // E.g.: $this->session = \Config\Services::session();
         $this->kosModel = new \App\Models\KosModel();
         $this->userModel = new \App\Models\UserModel();
+        $this->chatModel = new \App\Models\ChatModel();
+        $this->LihatKosModel = new \App\Models\LihatKosModel();
     }
 }

@@ -161,6 +161,8 @@
                         <form action="/hubungi" method="post">
                             <input type="hidden" id="nomor" name="nomor" value="<?= $data_kos['wa']; ?>">
                             <input type="hidden" id="tipe" name="tipe" value="<?= $data_kos['tipe']; ?>">
+                            <input type="hidden" id="id_kos" name="id_kos" value="<?= $data_kos['id']; ?>">
+                            <input type="hidden" id="nama_kos" name="nama_kos" value="<?= $data_kos['nama']; ?>">
                             <input type="text" name="nama_penghubung" id="nama_penghubung" class="form-control" id="exampleFormControlInput1" placeholder="Nama Anda :">
                             <!-- <input type="text" name="hp" id="hp" class="form-control" id="exampleFormControlInput1" placeholder="No. Hp :">
                             <input type="email" name="email" id="email" class="form-control" id="exampleFormControlInput1" placeholder="Email :"> -->
