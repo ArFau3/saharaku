@@ -120,7 +120,7 @@
                         <div class="card bg-transparent border border-0 mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="/assets/images/<?= $data_kos['thumbnail']; ?>" class="img-fluid" alt="...">
+                                    <img src="/assets/images/<?= $data_kos['folder'] . '/' . $data_kos['thumbnail']; ?>" class="img-fluid" alt="...">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body mx-4">
@@ -131,14 +131,18 @@
                                         <p class="card-text"><?= $data_kos['alamat']; ?>, <?= $data_kos['kabupaten']; ?>, <?= $data_kos['provinsi']; ?></p>
                                         <p class="card-title"><?= $data_kos['deskripsi']; ?></p>
                                         <div class="row text-center mb-3">
-                                            <div class="col mb-3"><a href="/editKos/<?= $data_kos['id']; ?>"><button type="button" class="btn btn-outline-success">Edit Kos</button></a></div>
+                                            <div class="col mb-3">
+                                                <form class="" action="/editKos/<?= $data_kos['id']; ?>" method="post">
+                                                    <?= csrf_field(); ?>
+                                                    <button type="submit" class="btn btn-outline-success">Edit Kos</button>
+                                                </form>
+                                            </div>
                                             <div class="col">
                                                 <form class="" action="/kos/<?= $data_kos['id']; ?>" method="post">
                                                     <?= csrf_field(); ?>
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button type="submit" class="btn btn-outline-danger float-lg-end mx-lg-0 mx-5" onclick="return confirm('Apakah Anda yakin ingin Menghapus data kos <?= $data_kos['nama']; ?>')">Hapus Kos</button>
                                                 </form>
-
                                             </div>
                                         </div>
                                     </div>

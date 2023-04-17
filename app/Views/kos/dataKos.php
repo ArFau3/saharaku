@@ -18,66 +18,67 @@
             <div class="container-fluid">
                 <div class="row">
                     <!-- SECTION Gambar -->
+                    <?php $album = $data_kos['folder'] . '/' ?>
                     <div class="col-lg-5">
                         <div class="container-fluid mx-0 px-0 mb-5 pb-3">
                             <div id="carouselExampleDark" class="carousel carousel-dark slide">
                                 <div class="carousel-indicators" style="margin-bottom: -70px;">
                                     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" style="width: 100px; height:50px;">
-                                        <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['thumbnail']; ?>" class="img-fluid" />
+                                        <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $album . $data_kos['thumbnail']; ?>" class="img-fluid" />
                                     </button>
                                     <?php if ($data_kos['foto1']) : ?>
                                         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2" style="width: 100px; height:50px;">
-                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto1']; ?>" />
+                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $album . $data_kos['foto1']; ?>" />
                                         </button>
                                     <?php endif ?>
                                     <?php if ($data_kos['foto2']) : ?>
                                         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3" style="width: 100px; height:50px;">
-                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto2']; ?>" class="img-fluid" />
+                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $album . $data_kos['foto2']; ?>" class="img-fluid" />
                                         </button>
                                     <?php endif ?>
                                     <?php if ($data_kos['foto3']) : ?>
                                         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4" style="width: 100px; height:50px;">
-                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto3']; ?>" class="img-fluid" />
+                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $album . $data_kos['foto3']; ?>" class="img-fluid" />
                                         </button>
                                     <?php endif ?>
                                     <?php if ($data_kos['foto4']) : ?>
                                         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5" style="width: 100px; height:50px;">
-                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto4']; ?>" class="img-fluid" />
+                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $album . $data_kos['foto4']; ?>" class="img-fluid" />
                                         </button>
                                     <?php endif ?>
                                     <?php if ($data_kos['foto5']) : ?>
                                         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="5" aria-label="Slide 6" style="width: 100px; height:50px;">
-                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $data_kos['foto5']; ?>" class="img-fluid" />
+                                            <img class="d-block w-100 h-100 shadow-1-strong rounded" src="/assets/images/<?= $album . $data_kos['foto5']; ?>" class="img-fluid" />
                                         </button>
                                     <?php endif ?>
                                 </div>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active" data-bs-interval="10000">
-                                        <img src="/assets/images/<?= $data_kos['thumbnail']; ?>" class="d-block w-100" alt="...">
+                                        <img src="/assets/images/<?= $album . $data_kos['thumbnail']; ?>" class="d-block w-100" alt="...">
                                     </div>
                                     <?php if ($data_kos['foto1']) : ?>
                                         <div class="carousel-item" data-bs-interval="2000">
-                                            <img src="/assets/images/<?= $data_kos['foto1']; ?>" class="d-block w-100" alt="...">
+                                            <img src="/assets/images/<?= $album . $data_kos['foto1']; ?>" class="d-block w-100" alt="...">
                                         </div>
                                     <?php endif ?>
                                     <?php if ($data_kos['foto2']) : ?>
                                         <div class="carousel-item">
-                                            <img src="/assets/images/<?= $data_kos['foto2']; ?>" class="d-block w-100" alt="...">
+                                            <img src="/assets/images/<?= $album . $data_kos['foto2']; ?>" class="d-block w-100" alt="...">
                                         </div>
                                     <?php endif ?>
                                     <?php if ($data_kos['foto3']) : ?>
                                         <div class="carousel-item">
-                                            <img src="/assets/images/<?= $data_kos['foto3']; ?>" class="d-block w-100" alt="...">
+                                            <img src="/assets/images/<?= $album . $data_kos['foto3']; ?>" class="d-block w-100" alt="...">
                                         </div>
                                     <?php endif ?>
                                     <?php if ($data_kos['foto4']) : ?>
                                         <div class="carousel-item">
-                                            <img src="/assets/images/<?= $data_kos['foto4']; ?>" class="d-block w-100" alt="...">
+                                            <img src="/assets/images/<?= $album . $data_kos['foto4']; ?>" class="d-block w-100" alt="...">
                                         </div>
                                     <?php endif ?>
                                     <?php if ($data_kos['foto5']) : ?>
                                         <div class="carousel-item">
-                                            <img src="/assets/images/<?= $data_kos['foto5']; ?>" class="d-block w-100" alt="...">
+                                            <img src="/assets/images/<?= $album . $data_kos['foto5']; ?>" class="d-block w-100" alt="...">
                                         </div>
                                     <?php endif ?>
                                 </div>

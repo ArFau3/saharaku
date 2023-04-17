@@ -147,6 +147,13 @@ class Kos extends BaseController
             return view('kos/tambahKos', $data);
         }
 
+        // Menyiapkan direktori per kos
+        $album = $this->request->getVar('nama');
+        if (!is_dir('assets/images/' . $album)) {
+            mkdir('./assets/images/' . $album, 0777, true);
+        }
+        $folder = $this->request->getVar('nama');
+        // ALTER TABLE kos ADD COLUMN folder varchar(155) AFTER wifi
         // Mengambil file foto
         if ($this->request->getFile('thumbnail')->getError() == 4) {
             session()->setFlashdata('pesan', 'Pastikan Anda memasukkan minimal satu foto pada bagian foto utama!');
@@ -157,7 +164,7 @@ class Kos extends BaseController
                 $ext = $file_thumbnail->getMimeType();
                 if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
                     $nama_thumbnail = $file_thumbnail->getRandomName();
-                    $file_thumbnail->move('assets/images', $nama_thumbnail);
+                    $file_thumbnail->move('assets/images/' . $folder, $nama_thumbnail);
                 } else {
                     session()->setFlashdata('pesan', 'Pastikan yang anda masukkan adalah foto!');
                     return redirect()->to('/tambahKos')->withInput();
@@ -176,7 +183,7 @@ class Kos extends BaseController
                 $ext = $file_foto1->getMimeType();
                 if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
                     $nama_foto1 = $file_foto1->getRandomName();
-                    $file_foto1->move('assets/images', $nama_foto1);
+                    $file_foto1->move('assets/images/' . $folder, $nama_foto1);
                 } else {
                     session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
                     return redirect()->to('/tambahKos')->withInput();
@@ -195,7 +202,7 @@ class Kos extends BaseController
                 $ext = $file_foto2->getMimeType();
                 if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
                     $nama_foto2 = $file_foto2->getRandomName();
-                    $file_foto2->move('assets/images', $nama_foto2);
+                    $file_foto2->move('assets/images/' . $folder, $nama_foto2);
                 } else {
                     session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
                     return redirect()->to('/tambahKos')->withInput();
@@ -214,7 +221,7 @@ class Kos extends BaseController
                 $ext = $file_foto3->getMimeType();
                 if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
                     $nama_foto3 = $file_foto3->getRandomName();
-                    $file_foto3->move('assets/images', $nama_foto3);
+                    $file_foto3->move('assets/images/' . $folder, $nama_foto3);
                 } else {
                     session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
                     return redirect()->to('/tambahKos')->withInput();
@@ -233,7 +240,7 @@ class Kos extends BaseController
                 $ext = $file_foto4->getMimeType();
                 if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
                     $nama_foto4 = $file_foto4->getRandomName();
-                    $file_foto4->move('assets/images', $nama_foto4);
+                    $file_foto4->move('assets/images/' . $folder, $nama_foto4);
                 } else {
                     session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
                     return redirect()->to('/tambahKos')->withInput();
@@ -252,7 +259,7 @@ class Kos extends BaseController
                 $ext = $file_foto5->getMimeType();
                 if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
                     $nama_foto5 = $file_foto5->getRandomName();
-                    $file_foto5->move('assets/images', $nama_foto5);
+                    $file_foto5->move('assets/images/' . $folder, $nama_foto5);
                 } else {
                     session()->setFlashdata('pesan', 'Pastikan yang anda Upload adalah foto!');
                     return redirect()->to('/tambahKos')->withInput();
@@ -341,6 +348,7 @@ class Kos extends BaseController
 
         $this->kosModel->save([
             'nama' => $this->request->getVar('nama'),
+            'folder' => $folder,
             'harga' => $harga,
             'kamar' => $kamar,
             'pemilik' => $this->request->getVar('pemilik'),
@@ -375,7 +383,31 @@ class Kos extends BaseController
 
     public function hapusKos($id)
     {
+        // Cari foto kos
+        $kos = $this->kosModel->find($id);
+        $album = $kos['folder'] . '/';
+
+        // Hapus Data di database
         $this->kosModel->delete($id);
+
+        // Hapus Gambar
+        unlink('assets/images/' . $album . $kos['thumbnail']);
+        if ($kos['foto1'] != null) {
+            unlink('assets/images/' . $album . $kos['foto1']);
+        }
+        if ($kos['foto2'] != null) {
+            unlink('assets/images/' . $album . $kos['foto2']);
+        }
+        if ($kos['foto3'] != null) {
+            unlink('assets/images/' . $album . $kos['foto3']);
+        }
+        if ($kos['foto4'] != null) {
+            unlink('assets/images/' . $album . $kos['foto4']);
+        }
+        if ($kos['foto5'] != null) {
+            unlink('assets/images/' . $album . $kos['foto5']);
+        }
+
         session()->setFlashdata('pesan', 'Data berhasil dihapus!');
         return redirect()->to('/profil#kelolaKos');
     }
@@ -412,6 +444,8 @@ class Kos extends BaseController
             return view('kos/editKos', $data);
         }
 
+        // Menyiapkan direktori per kos
+        $album = $this->request->getVar('folder') . '/';
         // Mengambil file foto
         if ($this->request->getFile('thumbnail')->getError() == 4) {
             $nama_thumbnail = $this->request->getVar('thumbnail_lama');
@@ -420,8 +454,11 @@ class Kos extends BaseController
             if ($file_thumbnail->getSize() <= 10240000) {
                 $ext = $file_thumbnail->getMimeType();
                 if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
+                    // Ambil Data Baru
                     $nama_thumbnail = $file_thumbnail->getRandomName();
-                    $file_thumbnail->move('assets/images', $nama_thumbnail);
+                    $file_thumbnail->move('assets/images/' . $album, $nama_thumbnail);
+                    //    Hapus Foto Lama
+                    unlink('assets/images/' . $album . $this->request->getVar('thumbnail_lama'));
                 } else {
                     session()->setFlashdata('pesan', 'Pastikan yang anda masukkan adalah foto!');
                     return redirect()->to('/editKos');
@@ -432,14 +469,22 @@ class Kos extends BaseController
             }
         }
         if ($this->request->getFile('foto1')->getError() == 4) {
-            $nama_foto1 = $this->request->getVar('foto1_lama');
+            if ($this->request->getVar('foto1_lama') == "") {
+                $nama_foto1 = null;
+            } else {
+                $nama_foto1 = $this->request->getVar('foto1_lama');
+            }
         } else {
             $file_foto1 = $this->request->getFile('foto1');
             if ($file_foto1->getSize() <= 10240000) {
                 $ext = $file_foto1->getMimeType();
                 if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
                     $nama_foto1 = $file_foto1->getRandomName();
-                    $file_foto1->move('assets/images', $nama_foto1);
+                    $file_foto1->move('assets/images/' . $album, $nama_foto1);
+                    // Hapus Gambar Lama
+                    if ($this->request->getVar('foto1_lama') != "") {
+                        unlink('assets/images/' . $album . $this->request->getVar('foto1_lama'));
+                    }
                 } else {
                     session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
                     return redirect()->to('/editKos');
@@ -450,14 +495,22 @@ class Kos extends BaseController
             }
         }
         if ($this->request->getFile('foto2')->getError() == 4) {
-            $nama_foto2 = $this->request->getVar('foto2_lama');
+            if ($this->request->getVar('foto2_lama') == "") {
+                $nama_foto2 = null;
+            } else {
+                $nama_foto2 = $this->request->getVar('foto2_lama');
+            }
         } else {
             $file_foto2 = $this->request->getFile('foto2');
             if ($file_foto2->getSize() <= 10240000) {
                 $ext = $file_foto2->getMimeType();
                 if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
                     $nama_foto2 = $file_foto2->getRandomName();
-                    $file_foto2->move('assets/images', $nama_foto2);
+                    $file_foto2->move('assets/images/' . $album, $nama_foto2);
+                    // Hapus Gambar Lama
+                    if ($this->request->getVar('foto2_lama') != "") {
+                        unlink('assets/images/' . $album . $this->request->getVar('foto2_lama'));
+                    }
                 } else {
                     session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
                     return redirect()->to('/editKos');
@@ -468,14 +521,22 @@ class Kos extends BaseController
             }
         }
         if ($this->request->getFile('foto3')->getError() == 4) {
-            $nama_foto3 = $this->request->getVar('foto3_lama');
+            if ($this->request->getVar('foto3_lama') == "") {
+                $nama_foto3 = null;
+            } else {
+                $nama_foto3 = $this->request->getVar('foto3_lama');
+            }
         } else {
             $file_foto3 = $this->request->getFile('foto3');
             if ($file_foto3->getSize() <= 10240000) {
                 $ext = $file_foto3->getMimeType();
                 if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
                     $nama_foto3 = $file_foto3->getRandomName();
-                    $file_foto3->move('assets/images', $nama_foto3);
+                    $file_foto3->move('assets/images/' . $album, $nama_foto3);
+                    // Hapus Gambar Lama
+                    if ($this->request->getVar('foto3_lama') != "") {
+                        unlink('assets/images/' . $album . $this->request->getVar('foto3_lama'));
+                    }
                 } else {
                     session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
                     return redirect()->to('/editKos');
@@ -486,14 +547,22 @@ class Kos extends BaseController
             }
         }
         if ($this->request->getFile('foto4')->getError() == 4) {
-            $nama_foto4 = $this->request->getVar('foto4_lama');
+            if ($this->request->getVar('foto4_lama') == "") {
+                $nama_foto4 = null;
+            } else {
+                $nama_foto4 = $this->request->getVar('foto4_lama');
+            }
         } else {
             $file_foto4 = $this->request->getFile('foto4');
             if ($file_foto4->getSize() <= 10240000) {
                 $ext = $file_foto4->getMimeType();
                 if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
                     $nama_foto4 = $file_foto4->getRandomName();
-                    $file_foto4->move('assets/images', $nama_foto4);
+                    $file_foto4->move('assets/images/' . $album, $nama_foto4);
+                    // Hapus Gambar Lama
+                    if ($this->request->getVar('foto4_lama') != "") {
+                        unlink('assets/images/' . $album . $this->request->getVar('foto4_lama'));
+                    }
                 } else {
                     session()->setFlashdata('pesan', 'Pastikan yang anda adalah foto!');
                     return redirect()->to('/editKos');
@@ -504,14 +573,21 @@ class Kos extends BaseController
             }
         }
         if ($this->request->getFile('foto5')->getError() == 4) {
-            $nama_foto5 = $this->request->getVar('foto5_lama');
+            if ($this->request->getVar('foto5_lama') == "") {
+                $nama_foto5 = null;
+            } else {
+                $nama_foto5 = $this->request->getVar('foto5_lama');
+            }
         } else {
             $file_foto5 = $this->request->getFile('foto5');
             if ($file_foto5->getSize() <= 10240000) {
                 $ext = $file_foto5->getMimeType();
                 if (($ext == "image/jpeg") || ($ext == "image/jpg") || ($ext == "image/png")) {
                     $nama_foto5 = $file_foto5->getRandomName();
-                    $file_foto5->move('assets/images', $nama_foto5);
+                    $file_foto5->move('assets/images/' . $album, $nama_foto5);
+                    if ($this->request->getVar('foto5_lama') != "") {
+                        unlink('assets/images/' . $album . $this->request->getVar('foto5_lama'));
+                    }
                 } else {
                     session()->setFlashdata('pesan', 'Pastikan yang anda Upload adalah foto!');
                     return redirect()->to('/editKos');

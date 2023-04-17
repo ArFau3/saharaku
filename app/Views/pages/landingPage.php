@@ -74,7 +74,7 @@
                             <div class="card mb-3">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="/assets/images/<?= $rekomendasi_kos[0]['thumbnail']; ?>" class="img-fluid h-100" alt="...">
+                                        <img src="/assets/images/<?= $rekomendasi_kos[0]['folder'] . '/' . $rekomendasi_kos[0]['thumbnail']; ?>" class="img-fluid h-100" alt="...">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
@@ -110,7 +110,7 @@
                             <div class="card mb-3">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="/assets/images/<?= $rekomendasi_kos[1]['thumbnail']; ?>" class="img-fluid h-100" alt="...">
+                                        <img src="/assets/images/<?= $rekomendasi_kos[1]['folder'] . '/' . $rekomendasi_kos[1]['thumbnail']; ?>" class="img-fluid h-100" alt="...">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
@@ -146,7 +146,7 @@
                             <div class="card mb-3">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="/assets/images/<?= $rekomendasi_kos[2]['thumbnail']; ?>" class="img-fluid h-100" alt="...">
+                                        <img src="/assets/images/<?= $rekomendasi_kos[2]['folder'] . '/' . $rekomendasi_kos[2]['thumbnail']; ?>" class="img-fluid h-100" alt="...">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">

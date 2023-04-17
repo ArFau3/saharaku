@@ -39,7 +39,7 @@ $routes->get('/kos/(:any)', 'Kos::dataKos/$1');
 $routes->get('/profil', 'Akun::profil');
 $routes->get('/tambahKos', 'Kos::tambahKos');
 $routes->post('/simpanKos', 'Kos::save');
-$routes->get('/editKos/(:num)', 'Kos::editKos/$1');
+$routes->post('/editKos/(:num)', 'Kos::editKos/$1');
 $routes->post('/updateKos/(:num)', 'Kos::updateKos/$1');
 $routes->post('/hubungi', 'Kos::hubungi');
 $routes->post('/gantiKontak/(:num)', 'Akun::updateAkun/$1');

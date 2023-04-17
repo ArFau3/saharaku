@@ -86,7 +86,7 @@
                             <div class="card bg-transparent border border-0 mb-3">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="/assets/images/<?= $data_kos['thumbnail']; ?>" class="img-fluid" alt="...">
+                                        <img src="/assets/images/<?= $data_kos['folder'] . '/' . $data_kos['thumbnail']; ?>" class="img-fluid" alt="...">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body mx-4">

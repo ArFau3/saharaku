@@ -19,12 +19,13 @@
         <input type="hidden" id="user_id" name="user_id" value="<?php echo $data_profil->id; ?>">
         <input type="hidden" id="provinsi" name="provinsi" value="<?php echo $data_kos['provinsi'] ?>">
         <input type="hidden" id="kabupaten" name="kabupaten" value="<?php echo $data_kos['kabupaten'] ?>">
-        <input type="hidden" id="thumbnail_lama" name="thumbnail_lama" value="<?php echo $data_kos['thumbnail'] ?>">
-        <input type="hidden" id="foto1_lama" name="foto1_lama" value="<?php echo $data_kos['foto1'] ?>">
-        <input type="hidden" id="foto2_lama" name="foto2_lama" value="<?php echo $data_kos['foto2'] ?>">
-        <input type="hidden" id="foto3_lama" name="foto3_lama" value="<?php echo $data_kos['foto3'] ?>">
-        <input type="hidden" id="foto4_lama" name="foto4_lama" value="<?php echo $data_kos['foto4'] ?>">
-        <input type="hidden" id="foto5_lama" name="foto5_lama" value="<?php echo $data_kos['foto5'] ?>">
+        <input type="hidden" id="folder" name="folder" value="<?php echo $data_kos['folder'] ?>">
+        <input type="hidden" id="thumbnail_lama" name="thumbnail_lama" value="<?php print $data_kos['thumbnail'] ?>">
+        <input type="hidden" id="foto1_lama" name="foto1_lama" value="<?php print $data_kos['foto1'] ?>">
+        <input type="hidden" id="foto2_lama" name="foto2_lama" value="<?php print $data_kos['foto2'] ?>">
+        <input type="hidden" id="foto3_lama" name="foto3_lama" value="<?php print $data_kos['foto3'] ?>">
+        <input type="hidden" id="foto4_lama" name="foto4_lama" value="<?php print $data_kos['foto4'] ?>">
+        <input type="hidden" id="foto5_lama" name="foto5_lama" value="<?php print $data_kos['foto5'] ?>">
         <!-- END HIDDEN INPUT -->
         <!-- Nama Pemilik -->
         <div class="row">
@@ -36,7 +37,7 @@
                             <label for="pemilik" class="col-form-label">Nama Pemilik :</label>
                         </div>
                         <div class="col-lg-8">
-                            <input type="text" id="pemilik" name="pemilik" class="form-control<?php ($validation->hasError('pemilik')) ? print "is-invalid" : print "" ?>" aria-describedby="passwordHelpInline" value="<?php $data_profil->firstname ? print "$data_profil->firstname" : print "$data_profil->username" ?>">
+                            <input type="text" id="pemilik" name="pemilik" class="form-control<?php ($validation->hasError('pemilik')) ? print "is-invalid" : print "" ?>" aria-describedby="passwordHelpInline" value="<?php $data_kos['pemilik'] ? print $data_kos['pemilik'] : ($data_profil->firstname ? print $data_profil->firstname : print $data_profil->username) ?>">
                             <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                 <?= $validation->getError('pemilik'); ?>
                             </div>
@@ -329,6 +330,7 @@
         $nama_foto3 = $data_kos['foto3'];
         $nama_foto4 = $data_kos['foto4'];
         $nama_foto5 = $data_kos['foto5'];
+        $album = $data_kos['folder'] . '/';
         ?>
         <div class="row">
             <div class="col">
@@ -352,7 +354,7 @@
                         <div class="col-sm-4">
                             <div class="input-group mb-3">
                                 <div class="input-group mb-3">
-                                    <img src="/assets/images/<?php $nama_thumbnail ? print $nama_thumbnail : print 'kos-default.png' ?>" class="img-thumbnail img-preview" alt="">
+                                    <img src="/assets/images/<?= $album ?><?php $nama_thumbnail ? print $nama_thumbnail : print 'kos-default.png' ?>" class="img-thumbnail img-preview" alt="">
                                     <div class="mb-3">
                                         <input class="form-control" type="file" id="thumbnail" name="thumbnail" onchange="previewImg()">
                                     </div>
@@ -383,31 +385,31 @@
                     <div class="row g-3">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-2 col-4">
-                            <img src="/assets/images/<?php $nama_foto1 ? print $nama_foto1 : print 'kos-default.png' ?>" class="img-thumbnail img-preview1" alt="">
+                            <img src="/assets/images/<?php $nama_foto1 ? print $album . $nama_foto1 : print 'kos-default.png' ?>" class="img-thumbnail img-preview1" alt="">
                             <div class="mb-3">
                                 <input class="form-control" type="file" id="foto1" name="foto1" onchange="previewImg1()">
                             </div>
                         </div>
                         <div class="col-sm-2 col-4">
-                            <img src="/assets/images/<?php $nama_foto2 ? print $nama_foto2 : print 'kos-default.png' ?>" class="img-thumbnail img-preview2" alt="">
+                            <img src="/assets/images/<?php $nama_foto2 ? print $album . $nama_foto2 : print 'kos-default.png' ?>" class="img-thumbnail img-preview2" alt="">
                             <div class="mb-3">
                                 <input class="form-control" type="file" id="foto2" name="foto2" onchange="previewImg2()">
                             </div>
                         </div>
                         <div class="col-sm-2 col-4">
-                            <img src="/assets/images/<?php $nama_foto3 ? print $nama_foto3 : print 'kos-default.png' ?>" class="img-thumbnail img-preview3" alt="">
+                            <img src="/assets/images/<?php $nama_foto3 ? print $album . $nama_foto3 : print 'kos-default.png' ?>" class="img-thumbnail img-preview3" alt="">
                             <div class="mb-3">
                                 <input class="form-control" type="file" id="foto3" name="foto3" onchange="previewImg3()">
                             </div>
                         </div>
                         <div class="col-sm-2 col-4">
-                            <img src="/assets/images/<?php $nama_foto4 ? print $nama_foto4 : print 'kos-default.png' ?>" class="img-thumbnail img-preview4" alt="">
+                            <img src="/assets/images/<?php $nama_foto4 ? print $album . $nama_foto4 : print 'kos-default.png' ?>" class="img-thumbnail img-preview4" alt="">
                             <div class="mb-3">
                                 <input class="form-control" type="file" id="foto4" name="foto4" onchange="previewImg4()">
                             </div>
                         </div>
                         <div class="col-sm-2 col-4">
-                            <img src="/assets/images/<?php $nama_foto5 ? print $nama_foto5 : print 'kos-default.png' ?>" class="img-thumbnail img-preview5" alt="">
+                            <img src="/assets/images/<?php $nama_foto5 ? print $album . $nama_foto5 : print 'kos-default.png' ?>" class="img-thumbnail img-preview5" alt="">
                             <div class="mb-3">
                                 <input class="form-control" type="file" id="foto5" name="foto5" onchange="previewImg5()">
                             </div>

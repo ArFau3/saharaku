@@ -102,11 +102,11 @@
     <div style="background-color: #000A50;">
         <div class="container text-light pb-4 pt-4 mt-1">
             <div class="row">
-                <div class="col-3">
+                <div class="col-lg-3 mb-4 text-center">
                     <h5>Sahabat Rantau</h5>
                     <p class="fs-6 fw-light">Teman Anak Rantau yang Selalu Menemani</p>
                 </div>
-                <div class="col"></div>
+                <div class="col-lg-1"></div>
                 <div class="col-4 text-center">
                     <h5>Sosial Media Kami</h5>
                     <div class="row">
@@ -131,8 +131,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col"></div>
-                <div class="col-3 text-center">
+                <div class="col-1"></div>
+                <div class="col-lg-3 col-7 text-center">
                     <h5>Kontak Kami</h5>
                     <div class="row">
                         <div class="col">
